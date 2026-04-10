@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Francesca Loren Website Preview</title>
+<!-- Load Shopify config first -->
+  <script src="shopify-config.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+
+/*CSS*/
+/*This is the Navigation Bar section*/
+.navbar 
+{margin-top: 10px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: #fff;
+border: 2px solid #000;
+padding: 30px 20px;
+color: #000;
+font-family: Arial, sans-serif;
+position: relative;
+z-index: 1001;}
+
+        .nav-links 
+        {display: flex;
+        gap: 14px;
+        list-style: none; /* Added for ul */
+        margin: 0;
+        padding: 0;}
+
+        .nav-links a 
+        {color: #000;
+        text-decoration: none;
+        font-size: 20px;
+        text-transform: uppercase;}
+
+        .nav-links a:hover 
+        {color: #666;}
+  
+.logo-container 
+{color: black;
+font-weight: bold;
+flex-shrink: 0; /* prevents logo from shrinking */
+position: absolute;
+left: 50%;
+align-items: center;
+transform: translateX(-50%); /* Add this line to center properly */}
+
+        .logo-link 
+        {color: #000;
+        font-size: 36px; /*update all; */
+        font-weight: bold;
+        text-decoration: none;
+        font-style: italic;}
+
+        .logo-link:hover 
+        {color: #666;}
+
+.wrapper 
+{flex: 1;
+display: flex;
+flex-direction: row;
+position: relative;
+height: 100%;}
+
+
+
+/*this is the first main image container on the homepage*/
+.image-container-1 
+{margin-top: 10px;
+margin-left: 0px;
+margin-right: 0px;
+margin-bottom: 0;
+height: 4400px; /* these dimensions are too big, you need to play around and make it smaller*/
+width: 100%; 
+box-sizing: border-box;
+display: grid;
+position: relative; /* Added to establish a stacking context */
+z-index: 1;/* Ensure it's below the iframe */
+overflow: visible;}
+
+        .image-1
+        {width: 100%;/* ensures iframe isn't clipped?!*/
+        height: 36.7%;
+        object-fit: cover;
+        display: block;
+        z-index: 2;
+        border: 2px solid black;}
+
+
+
+footer 
+{position: static; /* Keeps it at the bottom of the viewport */
+bottom: 0;
+width: 100%;}
+
+        .copyright_text
+        {font-size: 20px;
+        font-family: Arial, sans-serif;
+        cursor: pointer;
+        align-items: center;
+        text-align: center;
+        padding-bottom: -10px;}
+</style>
+</head>
+
+
+<body>
+
+<!--this is html-->
+<nav class="navbar">
+  <div class="logo-container">
+    <a href="https://francescaloren.com" class="logo-link"><b><i>FRANCESCA LOREN</i></b></a>
+  </div>
+</nav>
+
+
+<!--main image container 1-->
+<div class="image-container-1">
+    <img class="image-1" src="images/image-1.jpg">
+</div>
+
+<footer>
+    <div class="copyright_text" id="copyright_text">2026 FRANCESCA LOREN</div>
+</footer>
+<script>
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+ 
+
+    
