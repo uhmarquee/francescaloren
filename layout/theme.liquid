@@ -1,5 +1,5 @@
 <style>
-  /* Base styles (works on all devices) */
+  /* Common styles for both desktop and mobile */
   .navbar {
     margin-top: 10px;
     display: flex;
@@ -7,9 +7,7 @@
     align-items: center;
     background-color: #fff;
     border: 2px solid #000;
-    padding: 20px 15px;           /* smaller padding on mobile */
-    color: #000;
-    font-family: Arial, sans-serif;
+    padding: 25px 20px;
     position: relative;
     z-index: 1001;
   }
@@ -22,25 +20,23 @@
 
   .logo-link {
     color: #000;
-    font-size: 28px;              /* slightly smaller on mobile */
+    font-size: 36px;
     font-weight: bold;
     text-decoration: none;
     font-style: italic;
   }
 
   .image-container-1 {
-    margin-top: 10px;
     width: 100%;
     position: relative;
-    overflow: hidden;             /* prevents weird scrolling */
   }
 
   .image-1 {
     width: 100%;
-    height: auto;                 /* important for mobile */
-    object-fit: cover;
+    height: auto;
     display: block;
     border: 2px solid black;
+    object-fit: cover;
   }
 
   footer {
@@ -49,36 +45,38 @@
 
   .copyright_text {
     font-size: 18px;
-    font-family: Arial, sans-serif;
     text-align: center;
-    padding: 30px 0;
+    padding: 40px 0;
   }
 
-  /* ===================== MOBILE FIXES ===================== */
+  /* ================== MOBILE VERSION ================== */
   @media (max-width: 768px) {
     .navbar {
-      padding: 15px 10px;
+      padding: 20px 15px;
     }
 
     .logo-link {
-      font-size: 24px;            /* smaller logo on phones */
+      font-size: 28px;           /* slightly smaller on phones */
     }
 
     .image-container-1 {
-      height: auto !important;    /* removes your huge 4400px */
-      min-height: 500px;          /* you can change this number */
+      height: auto;
     }
 
     .image-1 {
-      height: 100vh;              /* full screen height on mobile - dramatic look */
-      max-height: 700px;          /* safety limit so it doesn't get too tall */
+      height: 100vh;             /* Full screen height on mobile - dramatic look */
+      max-height: 680px;         /* Prevents it from being too tall on very big phones */
     }
   }
 
-  /* Optional: Extra fix for very small phones */
+  /* Extra small phones */
   @media (max-width: 480px) {
     .logo-link {
-      font-size: 22px;
+      font-size: 24px;
+    }
+    
+    .image-1 {
+      max-height: 620px;
     }
   }
 </style>
