@@ -17,11 +17,41 @@
       overflow-x: hidden;
     }
 
+    /* ==================== NAVBAR ==================== */
+    .navbar {
+      margin-top: 10px;
+      background-color: #fff;
+      border: 2px solid #000;
+      padding: 22px 15px;
+      position: relative;
+      z-index: 1001;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;   /* centers everything */
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo-link {
+      color: #000;
+      font-size: 34px;
+      font-weight: bold;
+      text-decoration: none;
+      font-style: italic;
+      letter-spacing: 2px;
+      white-space: nowrap;
+      text-align: center;
+    }
+
     /* ==================== IMAGES ==================== */
     .image-container-1 {
       width: 100%;
       position: relative;
-      margin-top: 0;           /* removed extra gap since navbar is gone */
+      margin-top: 15px;           /* nice gap between navbar and first image */
       padding: 0 10px;
     }
 
@@ -36,8 +66,18 @@
 
     /* ==================== RESPONSIVE (Mobile) ==================== */
     @media screen and (max-width: 768px) {
+      .navbar {
+        padding: 18px 12px;
+      }
+
+      .logo-link {
+        font-size: 26px;           /* smaller but still bold on mobile */
+        letter-spacing: 1px;
+      }
+
       .image-container-1 {
         padding: 0 8px;
+        margin-top: 12px;
       }
 
       .image-1 {
@@ -63,6 +103,13 @@
 <body>
 
   {% section 'header' %}
+
+  <!-- Simple Navbar - Only "FRANCESCA LOREN" -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="/" class="logo-link">FRANCESCA LOREN</a>
+    </div>
+  </nav>
 
   <main>
     {{ content_for_layout }}
