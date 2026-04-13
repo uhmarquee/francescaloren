@@ -1,84 +1,107 @@
-<style>
-  /* Common styles */
-  .navbar {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    border: 2px solid #000;
-    padding: 25px 20px;
-    position: relative;
-    z-index: 1001;
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page_title | default: 'Francesca Loren' }}</title>
 
-  .logo-container {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+  {{ content_for_header }}   ←←← This line MUST be here
 
-  .logo-link {
-    color: #000;
-    font-size: 36px;
-    font-weight: bold;
-    text-decoration: none;
-    font-style: italic;
-    white-space: nowrap;
-  }
-
-  .image-container-1 {
-    width: 100%;
-    position: relative;
-  }
-
-  .image-1 {
-    width: 100%;
-    display: block;
-    border: 2px solid black;
-    object-fit: cover;
-  }
-
-  footer {
-    width: 100%;
-  }
-
-  .copyright_text {
-    font-size: 18px;
-    text-align: center;
-    padding: 40px 0;
-  }
-
-  /* ================== MOBILE STYLES ================== */
-  @media (max-width: 768px) {
+  <style>
+    /* Common styles */
     .navbar {
-      padding: 18px 12px;
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      border: 2px solid #000;
+      padding: 25px 20px;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .logo-container {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .logo-link {
-      font-size: 24px;           /* Forces it to stay on one line */
+      color: #000;
+      font-size: 36px;
+      font-weight: bold;
+      text-decoration: none;
+      font-style: italic;
       white-space: nowrap;
     }
 
     .image-container-1 {
-      height: auto !important;
+      width: 100%;
+      position: relative;
     }
 
     .image-1 {
-      height: auto !important;
-      max-height: 460px !important;     /* ← Main control for height */
-      width: 100% !important;
-      object-fit: cover !important;
+      width: 100%;
+      display: block;
+      border: 2px solid black;
+      object-fit: cover;
     }
-  }
 
-  /* Very small phones */
-  @media (max-width: 480px) {
-    .logo-link {
-      font-size: 22px;
+    footer {
+      width: 100%;
     }
-    .image-1 {
-      max-height: 420px !important;
+
+    .copyright_text {
+      font-size: 18px;
+      text-align: center;
+      padding: 40px 0;
     }
-  }
-</style>
+
+    /* ================== MOBILE STYLES ================== */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 18px 12px;
+      }
+
+      .logo-link {
+        font-size: 24px;
+        white-space: nowrap;
+      }
+
+      .image-container-1 {
+        height: auto !important;
+      }
+
+      .image-1 {
+        height: auto !important;
+        max-height: 460px !important;
+        width: 100% !important;
+        object-fit: cover !important;
+      }
+    }
+
+    /* Very small phones */
+    @media (max-width: 480px) {
+      .logo-link {
+        font-size: 22px;
+      }
+      .image-1 {
+        max-height: 420px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  {% section 'header' %}
+  
+  <main>
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+
+  {{ content_for_footer }}
+</body>
+</html>
