@@ -25,11 +25,11 @@
     .navbar {
       background-color: #fff;
       border: 2px solid #000;
-      padding: 22px 0;           /* Only vertical padding */
-      margin: 10px 20px 15px 20px;  /* Same side margins as image container */
+      padding: 22px 0;
+      margin: 10px 20px 15px 20px;
       font-family: Arial, sans-serif;
-      width: calc(100% - 40px);     /* Compensate for the 20px left + 20px right margin */
-      max-width: 1160px;            /* 1200px - 40px */
+      width: calc(100% - 40px);     /* Matches image container exactly */
+      max-width: 1160px;
     }
 
     .navbar-inner {
@@ -37,12 +37,12 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      padding: 0 20px;              /* Logo breathing room */
+      padding: 0 20px;
     }
 
     .logo-link {
       color: #000;
-      font-size: 42px;
+      font-size: 36px;              /* Desktop size as requested */
       font-weight: bold;
       text-decoration: none;
       font-style: italic;
@@ -53,7 +53,7 @@
     /* ==================== IMAGE CONTAINER ==================== */
     .image-container-1 {
       width: 100%;
-      padding: 0 20px;              /* Same side spacing */
+      padding: 0 20px;
       margin-top: 0;
     }
 
@@ -69,7 +69,8 @@
     @media screen and (max-width: 768px) {
       .navbar {
         margin: 8px 15px 12px 15px;
-        width: calc(100% - 30px);   /* 15px left + 15px right */
+        padding: 18px 0;
+        width: calc(100% - 30px);
         max-width: 1170px;
       }
 
@@ -78,7 +79,7 @@
       }
 
       .logo-link {
-        font-size: 30px;
+        font-size: 28px;            /* Smaller and better for mobile */
       }
 
       .image-container-1 {
