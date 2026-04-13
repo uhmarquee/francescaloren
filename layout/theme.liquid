@@ -1,5 +1,5 @@
 <style>
-  /* Base styles - same for desktop and mobile */
+  /* Common styles */
   .navbar {
     margin-top: 10px;
     display: flex;
@@ -24,7 +24,7 @@
     font-weight: bold;
     text-decoration: none;
     font-style: italic;
-    white-space: nowrap;           /* Forces logo to stay on one line */
+    white-space: nowrap;
   }
 
   .image-container-1 {
@@ -49,36 +49,36 @@
     padding: 40px 0;
   }
 
-  /* ================== MOBILE FIXES ================== */
+  /* ================== MOBILE STYLES ================== */
   @media (max-width: 768px) {
     .navbar {
-      padding: 20px 15px;
+      padding: 18px 12px;
     }
 
     .logo-link {
-      font-size: 26px;           /* Smaller but still one line */
+      font-size: 24px;           /* Forces it to stay on one line */
       white-space: nowrap;
     }
 
     .image-container-1 {
-      height: auto;
+      height: auto !important;
     }
 
     .image-1 {
-      height: auto;
-      max-height: 520px;         /* This is the key number - adjust if needed */
-      width: 100%;
-      object-fit: cover;
+      height: auto !important;
+      max-height: 460px !important;     /* ← Main control for height */
+      width: 100% !important;
+      object-fit: cover !important;
     }
   }
 
   /* Very small phones */
   @media (max-width: 480px) {
     .logo-link {
-      font-size: 23px;
+      font-size: 22px;
     }
     .image-1 {
-      max-height: 480px;
+      max-height: 420px !important;
     }
   }
 </style>
