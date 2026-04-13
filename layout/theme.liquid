@@ -7,7 +7,6 @@
   {{ content_for_header }}
 
   <style>
-    /* Basic resets for better mobile behavior */
     * {
       box-sizing: border-box;
     }
@@ -18,59 +17,44 @@
       overflow-x: hidden;
     }
 
-    /* Navbar */
+    /* ==================== NAVBAR ==================== */
     .navbar {
       margin-top: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       background-color: #fff;
       border: 2px solid #000;
-      padding: 20px 15px;
-      color: #000;
-      font-family: Arial, sans-serif;
+      padding: 22px 15px;
       position: relative;
       z-index: 1001;
+      font-family: Arial, sans-serif;
     }
 
-    .nav-links {
+    .navbar-inner {
       display: flex;
-      gap: 14px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .nav-links a {
-      color: #000;
-      text-decoration: none;
-      font-size: 18px;
-      text-transform: uppercase;
-    }
-
-    .logo-container {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+      align-items: center;
+      justify-content: center;   /* centers everything */
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .logo-link {
       color: #000;
-      font-size: 32px;
+      font-size: 34px;
       font-weight: bold;
       text-decoration: none;
       font-style: italic;
+      letter-spacing: 2px;
+      white-space: nowrap;
+      text-align: center;
     }
 
-    /* Main content container */
+    /* ==================== IMAGES ==================== */
     .image-container-1 {
       width: 100%;
       position: relative;
-      margin-top: 10px;
+      margin-top: 15px;           /* nice gap between navbar and first image */
       padding: 0 10px;
     }
 
-    /* All images - fixed for mobile */
     .image-1 {
       width: 100%;
       height: auto;
@@ -80,24 +64,22 @@
       margin-bottom: 15px;
     }
 
-    /* Mobile optimizations */
+    /* ==================== RESPONSIVE (Mobile) ==================== */
     @media screen and (max-width: 768px) {
       .navbar {
         padding: 18px 12px;
       }
-      
-      .nav-links a {
-        font-size: 16px;
-      }
-      
+
       .logo-link {
-        font-size: 28px;
+        font-size: 26px;           /* smaller but still bold on mobile */
+        letter-spacing: 1px;
       }
-      
+
       .image-container-1 {
         padding: 0 8px;
+        margin-top: 12px;
       }
-      
+
       .image-1 {
         margin-bottom: 12px;
         border-width: 1.5px;
@@ -121,6 +103,13 @@
 <body>
 
   {% section 'header' %}
+
+  <!-- Simple Navbar - Only "FRANCESCA LOREN" -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="/" class="logo-link">FRANCESCA LOREN</a>
+    </div>
+  </nav>
 
   <main>
     {{ content_for_layout }}
