@@ -4,40 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FL BASE</title>
-  
+ 
   <style>
-
-body {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
     * {
       box-sizing: border-box;
     }
+
     body, html {
       margin: 0;
       padding: 0;
       overflow-x: hidden;
     }
 
+    body {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
     /* ==================== NAVBAR ==================== */
     .navbar {
       background-color: #fff;
       border: 2px solid #000;
-      padding: 22px 0;              /* Reduced horizontal padding */
-      margin: 10px 20px 15px 20px;  /* Same side margin as image + gap below */
+      padding: 22px 0;           /* Only vertical padding */
+      margin: 10px 20px 15px 20px;  /* Same side margins as image container */
       font-family: Arial, sans-serif;
-      width: 100%;
+      width: calc(100% - 40px);     /* Compensate for the 20px left + 20px right margin */
+      max-width: 1160px;            /* 1200px - 40px */
     }
 
     .navbar-inner {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 100%;            /* Controls overall content width */
-      margin: 0 auto;
-      padding: 0 20px;              /* Inner padding for logo breathing room */
+      width: 100%;
+      padding: 0 20px;              /* Logo breathing room */
     }
 
     .logo-link {
@@ -53,7 +53,7 @@ body {
     /* ==================== IMAGE CONTAINER ==================== */
     .image-container-1 {
       width: 100%;
-      padding: 0 20px;              /* Same side spacing as navbar */
+      padding: 0 20px;              /* Same side spacing */
       margin-top: 0;
     }
 
@@ -69,13 +69,18 @@ body {
     @media screen and (max-width: 768px) {
       .navbar {
         margin: 8px 15px 12px 15px;
+        width: calc(100% - 30px);   /* 15px left + 15px right */
+        max-width: 1170px;
       }
+
       .navbar-inner {
         padding: 0 15px;
       }
+
       .logo-link {
         font-size: 30px;
       }
+
       .image-container-1 {
         padding: 0 15px;
       }
@@ -86,6 +91,7 @@ body {
       width: 100%;
       position: static;
     }
+
     .copyright_text {
       font-size: 20px;
       font-family: Arial, sans-serif;
@@ -95,9 +101,7 @@ body {
   </style>
 </head>
 <body>
-
-
-  <!-- Navbar - same width as image -->
+  <!-- Navbar -->
   <nav class="navbar">
     <div class="navbar-inner">
       <a href="https://francescaloren.com" class="logo-link">
@@ -114,6 +118,5 @@ body {
   <footer>
     <div class="copyright_text">2026 FRANCESCA LOREN</div>
   </footer>
-
 </body>
 </html>
