@@ -1,5 +1,5 @@
 <style>
-  /* Common styles for both desktop and mobile */
+  /* Desktop + Base Styles */
   .navbar {
     margin-top: 10px;
     display: flex;
@@ -33,7 +33,6 @@
 
   .image-1 {
     width: 100%;
-    height: auto;
     display: block;
     border: 2px solid black;
     object-fit: cover;
@@ -49,33 +48,37 @@
     padding: 40px 0;
   }
 
-  /* ================== MOBILE VERSION ================== */
+  /* ================== MOBILE VERSION - Clean & Dramatic ================== */
   @media (max-width: 768px) {
     .navbar {
       padding: 20px 15px;
+      margin-top: 8px;
     }
 
     .logo-link {
-      font-size: 28px;           /* slightly smaller on phones */
+      font-size: 28px;           /* Good size for phones */
     }
 
     .image-container-1 {
-      height: auto;
+      height: 100vh;             /* Full viewport height */
+      max-height: 680px;         /* Prevents it from being too tall on big phones */
+      overflow: hidden;
     }
 
     .image-1 {
-      height: 100vh;             /* Full screen height on mobile - dramatic look */
-      max-height: 680px;         /* Prevents it from being too tall on very big phones */
+      height: 100%;              /* Fill the container perfectly */
+      width: 100%;
+      object-fit: cover;         /* Keeps the image looking good without stretching */
     }
   }
 
-  /* Extra small phones */
+  /* Very small phones (iPhone SE, etc.) */
   @media (max-width: 480px) {
     .logo-link {
       font-size: 24px;
     }
     
-    .image-1 {
+    .image-container-1 {
       max-height: 620px;
     }
   }
