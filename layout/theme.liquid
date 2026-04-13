@@ -18,30 +18,30 @@
 
     /* ==================== NAVBAR ==================== */
     .navbar {
-      margin-top: 10px;
       background-color: #fff;
       border: 2px solid #000;
-      padding: 22px 15px;
+      padding: 18px 15px;           /* Reduced padding for tighter spacing */
       position: relative;
       z-index: 1001;
       font-family: Arial, sans-serif;
+      margin-bottom: 0;             /* Remove gap below navbar */
     }
 
     .navbar-inner {
       display: flex;
       align-items: center;
-      justify-content: center;     /* This centers the logo */
+      justify-content: center;
       max-width: 1200px;
       margin: 0 auto;
     }
 
     .logo-link {
       color: #000;
-      font-size: 34px;
+      font-size: 42px;              /* Larger on desktop */
       font-weight: bold;
       text-decoration: none;
       font-style: italic;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       white-space: nowrap;
     }
 
@@ -49,8 +49,8 @@
     .image-container-1 {
       width: 100%;
       position: relative;
-      margin-top: 15px;
       padding: 0 10px;
+      margin-top: 0;                /* No extra gap above image */
     }
 
     .image-1 {
@@ -59,24 +59,21 @@
       object-fit: cover;
       display: block;
       border: 2px solid #000;
-      margin-bottom: 15px;
     }
 
-    /* ==================== RESPONSIVE (Mobile) ==================== */
+    /* ==================== RESPONSIVE ==================== */
     @media screen and (max-width: 768px) {
       .navbar {
-        padding: 18px 12px;
+        padding: 14px 12px;         /* Tighter on mobile */
       }
       .logo-link {
-        font-size: 26px;
-        letter-spacing: 1px;
+        font-size: 28px;            /* Better size for mobile */
+        letter-spacing: 1.5px;
       }
       .image-container-1 {
         padding: 0 8px;
-        margin-top: 12px;
       }
       .image-1 {
-        margin-bottom: 12px;
         border-width: 1.5px;
       }
     }
@@ -95,7 +92,8 @@
   </style>
 </head>
 <body>
-  <!-- Only ONE centered navbar remains -->
+
+  <!-- Single Centered Navbar -->
   <nav class="navbar">
     <div class="navbar-inner">
       <a href="/" class="logo-link">FRANCESCA LOREN</a>
