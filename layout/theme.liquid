@@ -20,10 +20,11 @@
     .navbar {
       background-color: #fff;
       border: 2px solid #000;
-      padding: 18px 10px;           /* Matches image container side padding */
+      padding: 18px 15px;           /* Increased to create visible white space on sides */
       position: relative;
       z-index: 1001;
       font-family: Arial, sans-serif;
+      margin-bottom: 15px;          /* Adds spacing between navbar and image */
     }
 
     .navbar-inner {
@@ -32,7 +33,6 @@
       justify-content: center;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 10px;              /* Extra safety for inner alignment */
     }
 
     .logo-link {
@@ -49,7 +49,7 @@
     .image-container-1 {
       width: 100%;
       position: relative;
-      padding: 0 10px;              /* Same side padding as navbar */
+      padding: 0 15px;              /* Same side padding as navbar for perfect alignment */
       margin-top: 0;
     }
 
@@ -64,17 +64,15 @@
     /* ==================== RESPONSIVE ==================== */
     @media screen and (max-width: 768px) {
       .navbar {
-        padding: 14px 8px;          /* Matches mobile image padding */
-      }
-      .navbar-inner {
-        padding: 0 8px;
+        padding: 14px 12px;         /* Slightly more side space on mobile */
+        margin-bottom: 12px;
       }
       .logo-link {
         font-size: 28px;
         letter-spacing: 1.5px;
       }
       .image-container-1 {
-        padding: 0 8px;
+        padding: 0 12px;
       }
       .image-1 {
         border-width: 1.5px;
@@ -96,7 +94,7 @@
 </head>
 <body>
 
-  <!-- Single Centered Navbar - aligned with image -->
+  <!-- Navbar with matching side white space -->
   <nav class="navbar">
     <div class="navbar-inner">
       <a href="/" class="logo-link">FRANCESCA LOREN</a>
