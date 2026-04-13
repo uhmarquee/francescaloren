@@ -1,5 +1,5 @@
 <style>
-  /* Desktop + Base Styles */
+  /* Base styles - same for desktop and mobile */
   .navbar {
     margin-top: 10px;
     display: flex;
@@ -24,6 +24,7 @@
     font-weight: bold;
     text-decoration: none;
     font-style: italic;
+    white-space: nowrap;           /* Forces logo to stay on one line */
   }
 
   .image-container-1 {
@@ -48,38 +49,36 @@
     padding: 40px 0;
   }
 
-  /* ================== MOBILE VERSION - Clean & Dramatic ================== */
+  /* ================== MOBILE FIXES ================== */
   @media (max-width: 768px) {
     .navbar {
       padding: 20px 15px;
-      margin-top: 8px;
     }
 
     .logo-link {
-      font-size: 28px;           /* Good size for phones */
+      font-size: 26px;           /* Smaller but still one line */
+      white-space: nowrap;
     }
 
     .image-container-1 {
-      height: 100vh;             /* Full viewport height */
-      max-height: 680px;         /* Prevents it from being too tall on big phones */
-      overflow: hidden;
+      height: auto;
     }
 
     .image-1 {
-      height: 100%;              /* Fill the container perfectly */
+      height: auto;
+      max-height: 520px;         /* This is the key number - adjust if needed */
       width: 100%;
-      object-fit: cover;         /* Keeps the image looking good without stretching */
+      object-fit: cover;
     }
   }
 
-  /* Very small phones (iPhone SE, etc.) */
+  /* Very small phones */
   @media (max-width: 480px) {
     .logo-link {
-      font-size: 24px;
+      font-size: 23px;
     }
-    
-    .image-container-1 {
-      max-height: 620px;
+    .image-1 {
+      max-height: 480px;
     }
   }
 </style>
