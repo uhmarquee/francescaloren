@@ -5,12 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title | default: 'Francesca Loren' }}</title>
   {{ content_for_header }}
-
+  
   <style>
     * {
       box-sizing: border-box;
     }
-
     body, html {
       margin: 0;
       padding: 0;
@@ -31,7 +30,7 @@
     .navbar-inner {
       display: flex;
       align-items: center;
-      justify-content: center;   /* centers everything */
+      justify-content: center;     /* This centers the logo */
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -44,14 +43,13 @@
       font-style: italic;
       letter-spacing: 2px;
       white-space: nowrap;
-      text-align: center;
     }
 
     /* ==================== IMAGES ==================== */
     .image-container-1 {
       width: 100%;
       position: relative;
-      margin-top: 15px;           /* nice gap between navbar and first image */
+      margin-top: 15px;
       padding: 0 10px;
     }
 
@@ -69,17 +67,14 @@
       .navbar {
         padding: 18px 12px;
       }
-
       .logo-link {
-        font-size: 26px;           /* smaller but still bold on mobile */
+        font-size: 26px;
         letter-spacing: 1px;
       }
-
       .image-container-1 {
         padding: 0 8px;
         margin-top: 12px;
       }
-
       .image-1 {
         margin-bottom: 12px;
         border-width: 1.5px;
@@ -91,7 +86,6 @@
       width: 100%;
       position: static;
     }
-
     .copyright_text {
       font-size: 18px;
       font-family: Arial, sans-serif;
@@ -101,10 +95,7 @@
   </style>
 </head>
 <body>
-
-  {% section 'header' %}
-
-  <!-- Simple Navbar - Only "FRANCESCA LOREN" -->
+  <!-- Only ONE centered navbar remains -->
   <nav class="navbar">
     <div class="navbar-inner">
       <a href="/" class="logo-link">FRANCESCA LOREN</a>
@@ -117,6 +108,5 @@
 
   {% section 'footer' %}
   {{ content_for_footer }}
-
 </body>
 </html>
