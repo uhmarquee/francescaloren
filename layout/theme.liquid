@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page_title | default: 'Francesca Loren' }}</title>
 
-  {{ content_for_header }}   ←←← This line MUST be here
+  {{ content_for_header }}
 
   <style>
-    /* Common styles */
+    /* Your original CSS - cleaned up a bit */
     .navbar {
       margin-top: 10px;
       display: flex;
@@ -16,12 +16,35 @@
       align-items: center;
       background-color: #fff;
       border: 2px solid #000;
-      padding: 25px 20px;
+      padding: 30px 20px;
+      color: #000;
+      font-family: Arial, sans-serif;
       position: relative;
       z-index: 1001;
     }
 
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      color: #000;
+      text-decoration: none;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+
+    .nav-links a:hover {
+      color: #666;
+    }
+
     .logo-container {
+      color: black;
+      font-weight: bold;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
@@ -33,62 +56,38 @@
       font-weight: bold;
       text-decoration: none;
       font-style: italic;
-      white-space: nowrap;
+    }
+
+    .logo-link:hover {
+      color: #666;
     }
 
     .image-container-1 {
+      margin-top: 10px;
+      height: 4400px; /* ← You said this is too big. We'll reduce it later */
       width: 100%;
       position: relative;
+      overflow: visible;
     }
 
     .image-1 {
       width: 100%;
+      height: 36.7%;
+      object-fit: cover;
       display: block;
       border: 2px solid black;
-      object-fit: cover;
     }
 
     footer {
       width: 100%;
+      position: static;
     }
 
     .copyright_text {
-      font-size: 18px;
+      font-size: 20px;
+      font-family: Arial, sans-serif;
       text-align: center;
-      padding: 40px 0;
-    }
-
-    /* ================== MOBILE STYLES ================== */
-    @media (max-width: 768px) {
-      .navbar {
-        padding: 18px 12px;
-      }
-
-      .logo-link {
-        font-size: 24px;
-        white-space: nowrap;
-      }
-
-      .image-container-1 {
-        height: auto !important;
-      }
-
-      .image-1 {
-        height: auto !important;
-        max-height: 460px !important;
-        width: 100% !important;
-        object-fit: cover !important;
-      }
-    }
-
-    /* Very small phones */
-    @media (max-width: 480px) {
-      .logo-link {
-        font-size: 22px;
-      }
-      .image-1 {
-        max-height: 420px !important;
-      }
+      padding: 20px 0;
     }
   </style>
 </head>
