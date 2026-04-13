@@ -1,106 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page_title | default: 'Francesca Loren' }}</title>
+<style>
+  /* Base styles (works on all devices) */
+  .navbar {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border: 2px solid #000;
+    padding: 20px 15px;           /* smaller padding on mobile */
+    color: #000;
+    font-family: Arial, sans-serif;
+    position: relative;
+    z-index: 1001;
+  }
 
-  {{ content_for_header }}
+  .logo-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-  <style>
-    /* Your original CSS - cleaned up a bit */
+  .logo-link {
+    color: #000;
+    font-size: 28px;              /* slightly smaller on mobile */
+    font-weight: bold;
+    text-decoration: none;
+    font-style: italic;
+  }
+
+  .image-container-1 {
+    margin-top: 10px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;             /* prevents weird scrolling */
+  }
+
+  .image-1 {
+    width: 100%;
+    height: auto;                 /* important for mobile */
+    object-fit: cover;
+    display: block;
+    border: 2px solid black;
+  }
+
+  footer {
+    width: 100%;
+  }
+
+  .copyright_text {
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 30px 0;
+  }
+
+  /* ===================== MOBILE FIXES ===================== */
+  @media (max-width: 768px) {
     .navbar {
-      margin-top: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #fff;
-      border: 2px solid #000;
-      padding: 30px 20px;
-      color: #000;
-      font-family: Arial, sans-serif;
-      position: relative;
-      z-index: 1001;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 14px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .nav-links a {
-      color: #000;
-      text-decoration: none;
-      font-size: 20px;
-      text-transform: uppercase;
-    }
-
-    .nav-links a:hover {
-      color: #666;
-    }
-
-    .logo-container {
-      color: black;
-      font-weight: bold;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+      padding: 15px 10px;
     }
 
     .logo-link {
-      color: #000;
-      font-size: 36px;
-      font-weight: bold;
-      text-decoration: none;
-      font-style: italic;
-    }
-
-    .logo-link:hover {
-      color: #666;
+      font-size: 24px;            /* smaller logo on phones */
     }
 
     .image-container-1 {
-      margin-top: 10px;
-      height: 4400px; /* ← You said this is too big. We'll reduce it later */
-      width: 100%;
-      position: relative;
-      overflow: visible;
+      height: auto !important;    /* removes your huge 4400px */
+      min-height: 500px;          /* you can change this number */
     }
 
     .image-1 {
-      width: 100%;
-      height: 36.7%;
-      object-fit: cover;
-      display: block;
-      border: 2px solid black;
+      height: 100vh;              /* full screen height on mobile - dramatic look */
+      max-height: 700px;          /* safety limit so it doesn't get too tall */
     }
+  }
 
-    footer {
-      width: 100%;
-      position: static;
+  /* Optional: Extra fix for very small phones */
+  @media (max-width: 480px) {
+    .logo-link {
+      font-size: 22px;
     }
-
-    .copyright_text {
-      font-size: 20px;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px 0;
-    }
-  </style>
-</head>
-<body>
-
-  {% section 'header' %}
-  
-  <main>
-    {{ content_for_layout }}
-  </main>
-
-  {% section 'footer' %}
-
-  {{ content_for_footer }}
-</body>
-</html>
+  }
+</style>
