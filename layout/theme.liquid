@@ -95,4 +95,28 @@
     .copyright_text {
       font-size: 18px;
       font-family: Arial, sans-serif;
-      text
+      text-align: center;
+      padding: 25px 0;
+    }
+  </style>
+</head>
+<body>
+
+  {% section 'header' %}
+
+  <!-- Simple Navbar - Only "FRANCESCA LOREN" -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="/" class="logo-link">FRANCESCA LOREN</a>
+    </div>
+  </nav>
+
+  <main>
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+  {{ content_for_footer }}
+
+</body>
+</html>
