@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,13 +22,12 @@
     .navbar {
       background-color: #fff;
       border: 2px solid #000;
-      margin-top: 20px;                    /* Top whitespace */
+      margin-top: 10px;                    /* Top whitespace */
       margin-left: 11px;                   /* Left whitespace */
       margin-right: 5px;                  /* Right whitespace */
-      margin-bottom: 20px;                 /* Bottom whitespace */
-      
+
       background-color: #fff;
-      padding: 25px 30px;
+      padding: 16px 20px; /* padding: 25px 30px;*/
       position: relative;
       z-index: 1001;
       font-family: Arial, sans-serif;
@@ -37,17 +38,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      max-width: 1200px;
+      width: 100%;
       margin: 0 auto;
     }
 
     .logo-link {
       color: #000;
-      font-size: 42px;
+      font-size: 36px;
       font-weight: bold;
       text-decoration: none;
       font-style: italic;
-      letter-spacing: 3px;
       white-space: nowrap;
     }
 
@@ -56,7 +56,7 @@
       width: 100%;
       position: relative;
       padding: 0 15px;              /* Same side padding as navbar for perfect alignment */
-      margin-top: 0;
+      margin-top: 10px;
     }
 
     .image-1 {
@@ -67,6 +67,50 @@
       border: 2px solid #000;
     }
 
+/* ==================== DESKTOP ONLY - First Main Image ==================== */
+@media screen and (min-width: 769px) {
+  .image-container-1 {
+    margin-top: 10px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 100%;
+    height: 4400px;           /* ← Main height you should start with */
+    box-sizing: border-box;
+    display: grid;
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+    
+    /* Optional improvements for desktop */
+    /* max-width: 1400px; */   /* uncomment + add margin: 0 auto; if you want it centered/not full bleed */
+    /* margin: 10px auto 0; */
+  }
+
+  .image-1 {
+    width: 100%;
+    height: 36.7%;           /* Changed from 36.7% → 100% so it fills the container properly */
+    object-fit: cover;
+    display: block;
+    z-index: 2;
+    border: 2px solid black;
+  }
+}
+
+
+
+body {
+      margin: 0;
+      height: 100vh;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+   
 /* ==================== FOOTER / COPYRIGHT ==================== */
      /* Footer */
     footer {
@@ -85,40 +129,47 @@
 /* ==================== RESPONSIVE ==================== */
 @media screen and (max-width: 768px) {
   .navbar {
-    margin: 12px 11px 15px 11px;
-    padding: 14px 15px;        /* Reduced vertical padding → makes navbar shorter */
+    margin: 12px 11px 0px 11px;
+    padding: 8px 15px;        /* Reduced vertical padding → makes navbar shorter */
+    width: calc(100% - 22px);
   }
   
   .logo-link {
-    font-size: 20px;           /* Slightly smaller text to help with height */
-    letter-spacing: 1.2px;
+    font-size: 18px;           /* Slightly smaller text to help with height */
   }
   
   .image-container-1 {
     padding: 0 11px;
-  }
-}
-.copyright_text {
+    margin-top: 5px;
+    margin-bottom: 100px;}
+
+
+.copyright_text { 
+      
         font-size: 16px;         /* Smaller font size on mobile */
       }
+
 
 
   </style>
 </head>
 <body>
 
-
   <nav class="navbar">
     <div class="navbar-inner">
-      <a href="/" class="logo-link">FRANCESCA LOREN</a>
+      <a href="/" class="logo-link">MAISON ARLECCHINO</a>
     </div>
   </nav>
+
 
   <main>
     {{ content_for_layout }}
   </main>
 
+
+
   {% section 'footer' %}
   {{ content_for_footer }}
+
 </body>
 </html>
