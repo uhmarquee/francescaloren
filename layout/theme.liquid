@@ -132,7 +132,89 @@
         font-size: 16px;         /* Smaller font size on mobile */
       }
 
+/*sticky note*/
 
+ body {
+      margin: 0;
+      height: 100vh;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .sticky-note {
+      width: 500px;
+      height: 400px;
+      background: #fff59d; /* Yellow sticky note */
+      border: 2px solid #e0c040;
+      box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.4);
+      position: relative;
+      transition: all 0.2s;
+      overflow: hidden;
+    }
+
+    .title-bar {
+      background: linear-gradient(to right, #000080, #1084d0); /* Blue title bar */
+      color: white;
+      padding: 4px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: move;
+      user-select: none;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 3px;
+    }
+
+    .btn {
+      width: 22px;
+      height: 20px;
+      background: #c0c0c0;
+      border: 1px solid #dfdfdf;
+      border-right-color: #808080;
+      border-bottom-color: #808080;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .close-btn:hover { 
+      background: #e51400; 
+      color: white; 
+    }
+
+    .stickynote-content {
+      background: #fff59d;
+      height: calc(100% - 29px);
+      padding: 15px;
+      box-sizing: border-box;
+      border: 2px inset #ffffff;
+    }
+
+    .stickynote-content textarea {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 15.5px;
+      line-height: 1.45;
+      resize: none;
+      font-family: Arial, sans-serif;
+    }
 
   </style>
 </head>
@@ -152,5 +234,108 @@
   {% section 'footer' %}
   {{ content_for_footer }}
 
+
+
+
+<!--sticky note-->
+
+<div class="sticky-note" id="stickyWindow">
+    <div class="title-bar" id="titleBar">
+      <span class="title">Sticky Note</span>
+      <div class="buttons">
+        <button class="btn minimize-btn" id="minBtn">_</button>
+        <button class="btn maximize-btn" id="maxBtn">□</button>
+        <button class="btn close-btn" id="closeBtn">✕</button>
+      </div>
+    </div>
+    <div class="stickynote-content" id="contentArea">
+      <textarea id="noteText">Hi, my nickname is Harle nice to meet ya! Sorry, I'm busy right now, but I'll see ya soon!
+    -HQ</textarea>
+    </div>
+  </div>
+
 </body>
+
+
+  <script>
+    const stickyWindow = document.getElementById('stickyWindow');
+    const titleBar = document.getElementById('titleBar');
+    const minBtn = document.getElementById('minBtn');
+    const maxBtn = document.getElementById('maxBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const contentArea = document.getElementById('contentArea');
+
+    let isMaximized = false;
+    let originalWidth = '500px';
+    let originalHeight = '400px';
+    let originalTop = '';
+    let originalLeft = '';
+
+    // Draggable
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    titleBar.addEventListener('mousedown', (e) => {
+      if (e.target.tagName === 'BUTTON') return;
+      isDragging = true;
+      offsetX = e.clientX - stickyWindow.offsetLeft;
+      offsetY = e.clientY - stickyWindow.offsetTop;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        stickyWindow.style.left = (e.clientX - offsetX) + 'px';
+        stickyWindow.style.top = (e.clientY - offsetY) + 'px';
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    // Minimize
+    minBtn.addEventListener('click', () => {
+      contentArea.style.display = 'none';
+      stickyWindow.style.height = '29px';
+    });
+
+    // Maximize / Restore
+    maxBtn.addEventListener('click', () => {
+      if (!isMaximized) {
+        originalWidth = stickyWindow.style.width || '500px';
+        originalHeight = stickyWindow.style.height || '400px';
+        originalTop = stickyWindow.style.top;
+        originalLeft = stickyWindow.style.left;
+
+        stickyWindow.style.width = '90vw';
+        stickyWindow.style.height = '85vh';
+        stickyWindow.style.top = '5vh';
+        stickyWindow.style.left = '5vw';
+        maxBtn.textContent = '❐';
+        isMaximized = true;
+      } else {
+        stickyWindow.style.width = originalWidth;
+        stickyWindow.style.height = originalHeight;
+        stickyWindow.style.top = originalTop;
+        stickyWindow.style.left = originalLeft;
+        maxBtn.textContent = '□';
+        isMaximized = false;
+      }
+      contentArea.style.display = 'block';
+    });
+
+    // Close
+    closeBtn.addEventListener('click', () => {
+      stickyWindow.style.display = 'none';
+    });
+
+    // Double-click title bar to restore from minimized
+    titleBar.addEventListener('dblclick', () => {
+      if (contentArea.style.display === 'none') {
+        contentArea.style.display = 'block';
+        stickyWindow.style.height = originalHeight || '400px';
+      }
+    });
+  </script>
+
 </html>
