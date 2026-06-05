@@ -1,3 +1,20 @@
+<!-- =============== STICKY NOTE =============== -->
+
+<div class="sticky-note" id="stickyWindow">
+  <div class="title-bar" id="titleBar">
+    <span class="title">Sticky Note</span>
+    <div class="buttons">
+      <button class="btn" id="minBtn">_</button>
+      <button class="btn" id="maxBtn">□</button>
+      <button class="btn close-btn" id="closeBtn">✕</button>
+    </div>
+  </div>
+  <div class="stickynote-content" id="contentArea">
+    <textarea id="noteText">Hi, my nickname is Harle nice to meet ya! Sorry, I'm busy right now, but I'll see ya soon!
+-HQ</textarea>
+  </div>
+</div>
+
 <style>
   .sticky-note {
     position: fixed;
@@ -25,7 +42,15 @@
     height: 32px;
   }
 
-  .buttons { display: flex; gap: 4px; }
+  .title {
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 4px;
+  }
 
   .btn {
     width: 24px;
@@ -41,7 +66,10 @@
     cursor: pointer;
   }
 
-  .close-btn:hover { background: #e51400; color: white; }
+  .close-btn:hover {
+    background: #e51400;
+    color: white;
+  }
 
   .stickynote-content {
     height: calc(100% - 32px);
@@ -62,30 +90,6 @@
   }
 </style>
 
-<body>
-<!-- =============== STICKY NOTE SNIPPET =============== -->
-
-<div class="sticky-note" id="stickyWindow">
-  <div class="title-bar" id="titleBar">
-    <span class="title">Sticky Note</span>
-    <div class="buttons">
-      <button class="btn" id="minBtn">_</button>
-      <button class="btn" id="maxBtn">□</button>
-      <button class="btn close-btn" id="closeBtn">✕</button>
-    </div>
-  </div>
-  <div class="stickynote-content" id="contentArea">
-    <textarea id="noteText">Hi, my nickname is Harle nice to meet ya! Sorry, I'm busy right now, but I'll see ya soon!
--HQ</textarea>
-  </div>
-</div>
-</body>
-
-
-
-{% include 'sticky-note' %}
-
-
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const stickyWindow = document.getElementById('stickyWindow');
@@ -96,8 +100,6 @@
     const contentArea = document.getElementById('contentArea');
 
     let isMaximized = false;
-    let originalWidth = '500px';
-    let originalHeight = '400px';
 
     // Draggable
     let isDragging = false;
