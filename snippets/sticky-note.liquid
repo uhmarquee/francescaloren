@@ -17,8 +17,8 @@
 
 <style>
   .sticky-note {
-    position: static;
-    top: 900px;
+    position: fixed;           /* Keeps it in one place while scrolling */
+    top: 650px;                /* Move this number higher/lower as needed */
     left: 50%;
     transform: translateX(-50%);
     width: 500px;
@@ -101,7 +101,6 @@
 
     let isMaximized = false;
 
-    // Draggable
     let isDragging = false;
     let offsetX, offsetY;
 
@@ -120,21 +119,15 @@
       }
     });
 
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
+    document.addEventListener('mouseup', () => isDragging = false);
 
-    // Minimize
     minBtn.addEventListener('click', () => {
       contentArea.style.display = 'none';
       stickyWindow.style.height = '32px';
     });
 
-    // Maximize / Restore
     maxBtn.addEventListener('click', () => {
       if (!isMaximized) {
-        originalWidth = stickyWindow.style.width || '500px';
-        originalHeight = stickyWindow.style.height || '400px';
         stickyWindow.style.width = '90vw';
         stickyWindow.style.height = '85vh';
         stickyWindow.style.top = '5vh';
@@ -143,9 +136,9 @@
         maxBtn.textContent = '❐';
         isMaximized = true;
       } else {
-        stickyWindow.style.width = originalWidth;
-        stickyWindow.style.height = originalHeight;
-        stickyWindow.style.top = '120px';
+        stickyWindow.style.width = '500px';
+        stickyWindow.style.height = '400px';
+        stickyWindow.style.top = '650px';
         stickyWindow.style.left = '50%';
         stickyWindow.style.transform = 'translateX(-50%)';
         maxBtn.textContent = '□';
@@ -154,17 +147,8 @@
       contentArea.style.display = 'block';
     });
 
-    // Close
     closeBtn.addEventListener('click', () => {
       stickyWindow.style.display = 'none';
-    });
-
-    // Double-click title bar to restore
-    titleBar.addEventListener('dblclick', () => {
-      if (contentArea.style.display === 'none') {
-        contentArea.style.display = 'block';
-        stickyWindow.style.height = '400px';
-      }
     });
   });
 </script>
