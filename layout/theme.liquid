@@ -266,9 +266,14 @@ body {
 
 </body>
 
-
 <script>
+document.addEventListener('DOMContentLoaded', () => {
     const stickyWindow = document.getElementById('stickyWindow');
+    if (!stickyWindow) {
+        console.warn('Sticky window element not found');
+        return;
+    }
+
     const titleBar = document.getElementById('titleBar');
     const minBtn = document.getElementById('minBtn');
     const maxBtn = document.getElementById('maxBtn');
@@ -285,66 +290,77 @@ body {
     let isDragging = false;
     let offsetX, offsetY;
 
-    titleBar.addEventListener('mousedown', (e) => {
-      if (e.target.tagName === 'BUTTON') return;
-      isDragging = true;
-      offsetX = e.clientX - stickyWindow.offsetLeft;
-      offsetY = e.clientY - stickyWindow.offsetTop;
-    });
+    if (titleBar) {
+        titleBar.addEventListener('mousedown', (e) => {
+            if (e.target.tagName === 'BUTTON') return;
+            isDragging = true;
+            offsetX = e.clientX - stickyWindow.offsetLeft;
+            offsetY = e.clientY - stickyWindow.offsetTop;
+        });
+    }
 
     document.addEventListener('mousemove', (e) => {
-      if (isDragging) {
-        stickyWindow.style.left = (e.clientX - offsetX) + 'px';
-        stickyWindow.style.top = (e.clientY - offsetY) + 'px';
-      }
+        if (isDragging) {
+            stickyWindow.style.left = (e.clientX - offsetX) + 'px';
+            stickyWindow.style.top = (e.clientY - offsetY) + 'px';
+        }
     });
 
     document.addEventListener('mouseup', () => {
-      isDragging = false;
+        isDragging = false;
     });
 
     // Minimize
-    minBtn.addEventListener('click', () => {
-      contentArea.style.display = 'none';
-      stickyWindow.style.height = '29px';
-    });
+    if (minBtn) {
+        minBtn.addEventListener('click', () => {
+            if (contentArea) contentArea.style.display = 'none';
+            stickyWindow.style.height = '29px';
+        });
+    }
 
     // Maximize / Restore
-    maxBtn.addEventListener('click', () => {
-      if (!isMaximized) {
-        originalWidth = stickyWindow.style.width || '500px';
-        originalHeight = stickyWindow.style.height || '400px';
-        originalTop = stickyWindow.style.top;
-        originalLeft = stickyWindow.style.left;
+    if (maxBtn) {
+        maxBtn.addEventListener('click', () => {
+            if (!isMaximized) {
+                originalWidth = stickyWindow.style.width || '500px';
+                originalHeight = stickyWindow.style.height || '400px';
+                originalTop = stickyWindow.style.top;
+                originalLeft = stickyWindow.style.left;
 
-        stickyWindow.style.width = '90vw';
-        stickyWindow.style.height = '85vh';
-        stickyWindow.style.top = '5vh';
-        stickyWindow.style.left = '5vw';
-        maxBtn.textContent = '❐';
-        isMaximized = true;
-      } else {
-        stickyWindow.style.width = originalWidth;
-        stickyWindow.style.height = originalHeight;
-        stickyWindow.style.top = originalTop;
-        stickyWindow.style.left = originalLeft;
-        maxBtn.textContent = '□';
-        isMaximized = false;
-      }
-      contentArea.style.display = 'block';
-    });
+                stickyWindow.style.width = '90vw';
+                stickyWindow.style.height = '85vh';
+                stickyWindow.style.top = '5vh';
+                stickyWindow.style.left = '5vw';
+                maxBtn.textContent = '❐';
+                isMaximized = true;
+            } else {
+                stickyWindow.style.width = originalWidth;
+                stickyWindow.style.height = originalHeight;
+                stickyWindow.style.top = originalTop;
+                stickyWindow.style.left = originalLeft;
+                maxBtn.textContent = '□';
+                isMaximized = false;
+            }
+            if (contentArea) contentArea.style.display = 'block';
+        });
+    }
 
     // Close
-    closeBtn.addEventListener('click', () => {
-      stickyWindow.style.display = 'none';
-    });
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            stickyWindow.style.display = 'none';
+        });
+    }
 
     // Double-click title bar to restore from minimized
-    titleBar.addEventListener('dblclick', () => {
-      if (contentArea.style.display === 'none') {
-        contentArea.style.display = 'block';
-        stickyWindow.style.height = originalHeight || '400px';
-      }
-    });
-  </script>
+    if (titleBar) {
+        titleBar.addEventListener('dblclick', () => {
+            if (contentArea && contentArea.style.display === 'none') {
+                contentArea.style.display = 'block';
+                stickyWindow.style.height = originalHeight || '400px';
+            }
+        });
+    }
+});
+</script>
 </html>
