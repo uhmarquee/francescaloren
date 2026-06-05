@@ -63,7 +63,8 @@
 </style>
 
 <body>
-<!-- STICKY NOTE -->
+<!-- =============== STICKY NOTE SNIPPET =============== -->
+
 <div class="sticky-note" id="stickyWindow">
   <div class="title-bar" id="titleBar">
     <span class="title">Sticky Note</span>
@@ -85,16 +86,83 @@
 {% include 'sticky-note' %}
 
 
-
-
-
-
-
-
-
-
-
-
 <script>
-  // (Draggable + buttons code here - I can give you the full script if you want)
+  document.addEventListener('DOMContentLoaded', function() {
+    const stickyWindow = document.getElementById('stickyWindow');
+    const titleBar = document.getElementById('titleBar');
+    const minBtn = document.getElementById('minBtn');
+    const maxBtn = document.getElementById('maxBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const contentArea = document.getElementById('contentArea');
+
+    let isMaximized = false;
+    let originalWidth = '500px';
+    let originalHeight = '400px';
+
+    // Draggable
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    titleBar.addEventListener('mousedown', (e) => {
+      if (e.target.tagName === 'BUTTON') return;
+      isDragging = true;
+      offsetX = e.clientX - stickyWindow.offsetLeft;
+      offsetY = e.clientY - stickyWindow.offsetTop;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        stickyWindow.style.left = (e.clientX - offsetX) + 'px';
+        stickyWindow.style.top = (e.clientY - offsetY) + 'px';
+        stickyWindow.style.transform = 'none';
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    // Minimize
+    minBtn.addEventListener('click', () => {
+      contentArea.style.display = 'none';
+      stickyWindow.style.height = '32px';
+    });
+
+    // Maximize / Restore
+    maxBtn.addEventListener('click', () => {
+      if (!isMaximized) {
+        originalWidth = stickyWindow.style.width || '500px';
+        originalHeight = stickyWindow.style.height || '400px';
+        stickyWindow.style.width = '90vw';
+        stickyWindow.style.height = '85vh';
+        stickyWindow.style.top = '5vh';
+        stickyWindow.style.left = '5vw';
+        stickyWindow.style.transform = 'none';
+        maxBtn.textContent = '❐';
+        isMaximized = true;
+      } else {
+        stickyWindow.style.width = originalWidth;
+        stickyWindow.style.height = originalHeight;
+        stickyWindow.style.top = '120px';
+        stickyWindow.style.left = '50%';
+        stickyWindow.style.transform = 'translateX(-50%)';
+        maxBtn.textContent = '□';
+        isMaximized = false;
+      }
+      contentArea.style.display = 'block';
+    });
+
+    // Close
+    closeBtn.addEventListener('click', () => {
+      stickyWindow.style.display = 'none';
+    });
+
+    // Double-click title bar to restore
+    titleBar.addEventListener('dblclick', () => {
+      if (contentArea.style.display === 'none') {
+        contentArea.style.display = 'block';
+        stickyWindow.style.height = '400px';
+      }
+    });
+  });
 </script>
