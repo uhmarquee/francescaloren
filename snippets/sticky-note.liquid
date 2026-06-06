@@ -17,14 +17,14 @@
 <style>
   /* ==================== OVERALL PAGE WIDTH ==================== */
   body {
-    max-width: 3500px;
+    max-width: 5000px;
     margin: 0 auto;
     background-color: #fff;
   }
 
   .sticky-note {
-    position: fixed !important;
-    top: 120px;
+    position: absolute;
+    top: 1200px;
     left: 50%;
     transform: translateX(-50%);
     width: 520px;
@@ -90,31 +90,44 @@
     font-family: Arial, sans-serif;
   }
 
-  /* ================= RESPONSIVE SIZES ================= */
-  @media screen and (max-width: 1024px) {
-    .sticky-note {
-      width: 460px;
-      height: 380px;
-    }
-  }
 
-  @media screen and (max-width: 768px) {
-    .sticky-note {
-      top: 80px;
-      width: 88vw;
-      height: 300px;
-    }
-  }
+/* ================= RESPONSIVE SIZES ================= */
 
-  @media screen and (max-width: 480px) {
-    .sticky-note {
-      height: 270px;
-    }
-    .stickynote-content textarea {
-      font-size: 14.5px;
-    }
+/* Tablets */
+@media screen and (max-width: 1024px) {
+  .sticky-note {
+    width: 460px;
+    height: 380px;
   }
+}
+
+/* Mobile phones */
+@media screen and (max-width: 768px) {
+  .sticky-note {
+    top: 80px;
+    width: 88vw;
+    height: 300px;
+  }
+}
+
+/* Very small phones */
+@media screen and (max-width: 480px) {
+  .sticky-note {
+    height: 270px;
+  }
+  .stickynote-content textarea {
+    font-size: 14.5px;
+  }
+}
+
 </style>
+
+
+
+
+
+
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const stickyWindow = document.getElementById('stickyWindow');
