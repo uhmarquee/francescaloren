@@ -10,8 +10,6 @@
   </div>
   <div class="stickynote-content" id="contentArea">
     <textarea id="noteText">Hi, my nickname is Harle nice to meet ya! Sorry, I'm busy right now, but I'll see ya soon!
-
-
 -HQ</textarea>
   </div>
 </div>
@@ -25,12 +23,11 @@
   }
 
   .sticky-note {
-    position: absolute;
+    position: absolute;           /* Keep absolute for desktop as you like it */
     top: 1200px;
     margin-top: 900px;
-    margin-bottom: 100px;
     left: 50%;
-    transform: translateX(-211%);
+    transform: translateX(-50%);   /* Fixed the weird -211% */
     width: 700px;
     max-width: 92vw;
     height: 600px;
@@ -71,9 +68,9 @@
     cursor: pointer;
   }
 
-  .close-btn:hover { 
-    background: #e51400; 
-    color: white; 
+  .close-btn:hover {
+    background: #e51400;
+    color: white;
   }
 
   .stickynote-content {
@@ -94,43 +91,40 @@
     font-family: Arial, sans-serif;
   }
 
-
-/* ================= RESPONSIVE SIZES ================= */
-
-/* Tablets */
-@media screen and (max-width: 1024px) {
-  .sticky-note {
-    width: 460px;
-    height: 380px;
+  /* ================= RESPONSIVE SIZES ================= */
+  /* Tablets */
+  @media screen and (max-width: 1024px) {
+    .sticky-note {
+      width: 460px;
+      height: 380px;
+    }
   }
-}
 
-/* Mobile phones */
-@media screen and (max-width: 768px) {
-  .sticky-note {
-    top: 80px;
-    width: 88vw;
-    height: 300px;
+  /* Mobile phones - FORCE it to show */
+  @media screen and (max-width: 768px) {
+    .sticky-note {
+      position: fixed !important;     /* Most important change */
+      top: 100px !important;          /* Adjust this number if needed (higher = lower on screen) */
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      margin-top: 0 !important;
+      width: 88vw;
+      height: 320px;
+      z-index: 99999;
+    }
   }
-}
 
-/* Very small phones */
-@media screen and (max-width: 480px) {
-  .sticky-note {
-    height: 270px;
+  /* Very small phones */
+  @media screen and (max-width: 480px) {
+    .sticky-note {
+      top: 70px !important;
+      height: 280px;
+    }
+    .stickynote-content textarea {
+      font-size: 14.5px;
+    }
   }
-  .stickynote-content textarea {
-    font-size: 14.5px;
-  }
-}
-
 </style>
-
-
-
-
-
-
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -140,13 +134,12 @@
     const maxBtn = document.getElementById('maxBtn');
     const closeBtn = document.getElementById('closeBtn');
     const contentArea = document.getElementById('contentArea');
-
+    
     let isMaximized = false;
     let isDragging = false;
     let offsetX, offsetY;
-    let originalStyles = {};   // Store original size/position
+    let originalStyles = {};
 
-    // Save original styles on load
     function saveOriginalStyles() {
       originalStyles = {
         width: stickyWindow.style.width,
@@ -157,22 +150,39 @@
       };
     }
 
-    titleBar.addEventListener('mousedown', (e) => {
+    // Support both mouse and touch dragging (important for mobile)
+    function startDrag(e) {
       if (e.target.tagName === 'BUTTON') return;
+      
       isDragging = true;
-      offsetX = e.clientX - stickyWindow.offsetLeft;
-      offsetY = e.clientY - stickyWindow.offsetTop;
+      const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      
+      offsetX = clientX - stickyWindow.offsetLeft;
+      offsetY = clientY - stickyWindow.offsetTop;
+      
       stickyWindow.style.transform = 'none';
-    });
+    }
 
-    document.addEventListener('mousemove', (e) => {
-      if (isDragging) {
-        stickyWindow.style.left = (e.clientX - offsetX) + 'px';
-        stickyWindow.style.top = (e.clientY - offsetY) + 'px';
-      }
-    });
+    function drag(e) {
+      if (!isDragging) return;
+      
+      const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      
+      stickyWindow.style.left = (clientX - offsetX) + 'px';
+      stickyWindow.style.top = (clientY - offsetY) + 'px';
+    }
 
+    // Mouse events
+    titleBar.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', drag);
     document.addEventListener('mouseup', () => isDragging = false);
+
+    // Touch events (for mobile)
+    titleBar.addEventListener('touchstart', startDrag, { passive: true });
+    document.addEventListener('touchmove', drag, { passive: true });
+    document.addEventListener('touchend', () => isDragging = false);
 
     minBtn.addEventListener('click', () => {
       contentArea.style.display = 'none';
@@ -181,9 +191,7 @@
 
     maxBtn.addEventListener('click', () => {
       if (!isMaximized) {
-        // Save current state before maximizing
         saveOriginalStyles();
-
         stickyWindow.style.width = '90vw';
         stickyWindow.style.height = '75vh';
         stickyWindow.style.top = '10vh';
@@ -192,7 +200,7 @@
         maxBtn.textContent = '❐';
         isMaximized = true;
       } else {
-        // Restore to original (responsive) size
+        // Restore
         stickyWindow.style.width = originalStyles.width || '';
         stickyWindow.style.height = originalStyles.height || '';
         stickyWindow.style.top = originalStyles.top || '';
@@ -209,7 +217,7 @@
       stickyWindow.style.display = 'none';
     });
 
-    // Save original styles after everything loads
+    // Save initial styles
     saveOriginalStyles();
   });
 </script>
