@@ -1,3 +1,5 @@
+Good sticky 
+
 <!-- =============== STICKY NOTE =============== -->
 <div class="sticky-note windows-image-container" id="stickyWindow">
     <div class="title-bar" id="titleBar">
@@ -34,12 +36,83 @@
     transition: width 0.25s ease, height 0.25s ease, transform 0.25s ease;
 }
 
-/* Title bar, buttons, content styles (unchanged) */
-.title-bar { /* ... same as before ... */ }
+.title-bar {
+    background: linear-gradient(to right, #000080, #1084d0);
+    color: white;
+    padding: 2px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    user-select: none;
+    height: 25px;
+}
+
 .title { font-weight: bold; font-size: 12px; }
+
 .buttons { display: flex; gap: 2px; }
-.btn { /* ... same ... */ }
-/* minimize-btn, maximize-btn, close-btn pseudo elements same as before */
+
+.btn {
+    width: 16px;
+    height: 14px;
+    background-color: #c0c0c0;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-bottom: 1px solid #808080;
+    border-right: 1px solid #808080;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    font-size: 0;
+}
+
+.btn:active {
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-bottom: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+    background-color: #c0c0c0;
+}
+
+/* Windows 95 icons */
+.minimize-btn::before {
+    content: '';
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 2px;
+    background-color: #000;
+}
+
+.maximize-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border: 1px solid #000;
+    border-top: 2px solid #000;
+}
+
+.close-btn::before,
+.close-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 2px;
+    background-color: #000;
+}
+.close-btn::before { transform: translate(-50%, -50%) rotate(45deg); }
+.close-btn::after { transform: translate(-50%, -50%) rotate(-45deg); }
 
 .stickynote-content {
     padding: 10px;
@@ -62,7 +135,7 @@
     color: black;
 }
 
-/* ==================== STATES ==================== */
+/* States */
 .minimized .stickynote-content { display: none; }
 .minimized { height: 25px !important; overflow: hidden; }
 
@@ -70,39 +143,36 @@
     width: 820px !important;
     height: 720px !important;
     z-index: 10000;
+    /* Moves it a bit to the right while keeping left side aligned */
+    transform: translateX(-165%) !important;
 }
 
 /* ==================== RESPONSIVE RULES ==================== */
-/* TABLETS & Small Laptops */
+/* These rules automatically adjust the sticky note based on screen size */
+
 @media screen and (max-width: 1024px) {
+    /* TABLETS & Small Laptops */
     .sticky-note { 
         width: 460px; 
         height: 380px; 
     }
 }
 
-/* MOBILE PHONES + Smaller Desktops */
 @media screen and (max-width: 1500px) {
+    /* MOBILE PHONES + Smaller Desktops */
+    /* This is the main mobile rule - applies to most phones */
     .sticky-note {
         top: 900px !important;
         margin-top: 650px !important;
         left: 50% !important;
-        transform: translateX(-80%) !important;   /* Your updated normal mobile position */
+        transform: translateX(-80%) !important;
         width: 60vw;
         height: 280px;
     }
-
-    /* Enlarged on mobile - expands to the right while trying to keep left alignment */
-    .sticky-note.enlarged {
-        width: 85vw !important;           /* Wider on mobile */
-        height: 420px !important;         /* Adjust height as needed */
-        transform: translateX(-580%) !important;   /* Your requested value */
-        left: 50% !important;
-    }
 }
 
-/* VERY SMALL PHONES */
 @media screen and (max-width: 480px) {
+    /* VERY SMALL PHONES (iPhone SE, older Androids, etc.) */
     .sticky-note { 
         top: 70px !important; 
         height: 280px; 
@@ -133,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    // Dragging (unchanged)
+    // Dragging
     let isDragging = false;
     let offsetX, offsetY;
 
@@ -175,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Maximize / Enlarge
+    // Maximize - enlarges + slight right shift
     maxBtn.addEventListener('click', () => {
         if (isEnlarged) {
             stickyWindow.style.width = originalStyles.width;
