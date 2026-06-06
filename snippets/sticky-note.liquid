@@ -1,4 +1,5 @@
 <!-- =============== STICKY NOTE =============== -->
+
 <div class="sticky-note" id="stickyWindow">
   <div class="title-bar" id="titleBar">
     <span class="title">Sticky Note</span>
@@ -13,14 +14,15 @@
 -HQ</textarea>
   </div>
 </div>
+
 <style>
   .sticky-note {
+    position: fixed !important;
 
-  position: fixed !important; /* Keeps it in one place while scrolling */
-    top: 650px; /* Move this number higher/lower as needed */
     left: 50%;
     transform: translateX(-50%);
     width: 500px;
+    max-width: 92vw;
     height: 400px;
     background: #fff59d;
     border: 3px solid #e0c040;
@@ -28,6 +30,7 @@
     z-index: 9999;
     overflow: hidden;
   }
+
   .title-bar {
     background: linear-gradient(to right, #000080, #1084d0);
     color: white;
@@ -39,14 +42,11 @@
     user-select: none;
     height: 32px;
   }
-  .title {
-    font-weight: bold;
-    font-size: 14px;
-  }
-  .buttons {
-    display: flex;
-    gap: 4px;
-  }
+
+  .title { font-weight: bold; font-size: 14px; }
+
+  .buttons { display: flex; gap: 4px; }
+
   .btn {
     width: 24px;
     height: 22px;
@@ -60,15 +60,15 @@
     justify-content: center;
     cursor: pointer;
   }
-  .close-btn:hover {
-    background: #e51400;
-    color: white;
-  }
+
+  .close-btn:hover { background: #e51400; color: white; }
+
   .stickynote-content {
     height: calc(100% - 32px);
     padding: 15px;
     background: #fff59d;
   }
+
   .stickynote-content textarea {
     width: 100%;
     height: 100%;
@@ -80,7 +80,17 @@
     resize: none;
     font-family: Arial, sans-serif;
   }
+
+  /* Mobile adjustments */
+  @media screen and (max-width: 768px) {
+    .sticky-note {
+      top: 2300px;           /* Lower position for mobile */
+      width: 92vw;
+      height: 340px;
+    }
+  }
 </style>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const stickyWindow = document.getElementById('stickyWindow');
@@ -89,15 +99,19 @@
     const maxBtn = document.getElementById('maxBtn');
     const closeBtn = document.getElementById('closeBtn');
     const contentArea = document.getElementById('contentArea');
+
     let isMaximized = false;
+
     let isDragging = false;
     let offsetX, offsetY;
+
     titleBar.addEventListener('mousedown', (e) => {
       if (e.target.tagName === 'BUTTON') return;
       isDragging = true;
       offsetX = e.clientX - stickyWindow.offsetLeft;
       offsetY = e.clientY - stickyWindow.offsetTop;
     });
+
     document.addEventListener('mousemove', (e) => {
       if (isDragging) {
         stickyWindow.style.left = (e.clientX - offsetX) + 'px';
@@ -105,16 +119,19 @@
         stickyWindow.style.transform = 'none';
       }
     });
+
     document.addEventListener('mouseup', () => isDragging = false);
+
     minBtn.addEventListener('click', () => {
       contentArea.style.display = 'none';
       stickyWindow.style.height = '32px';
     });
+
     maxBtn.addEventListener('click', () => {
       if (!isMaximized) {
         stickyWindow.style.width = '90vw';
-        stickyWindow.style.height = '85vh';
-        stickyWindow.style.top = '5vh';
+        stickyWindow.style.height = '75vh';
+        stickyWindow.style.top = '10vh';
         stickyWindow.style.left = '5vw';
         stickyWindow.style.transform = 'none';
         maxBtn.textContent = '❐';
@@ -122,7 +139,7 @@
       } else {
         stickyWindow.style.width = '500px';
         stickyWindow.style.height = '400px';
-        stickyWindow.style.top = '650px';
+        stickyWindow.style.top = '4520px';
         stickyWindow.style.left = '50%';
         stickyWindow.style.transform = 'translateX(-50%)';
         maxBtn.textContent = '□';
@@ -130,141 +147,9 @@
       }
       contentArea.style.display = 'block';
     });
+
     closeBtn.addEventListener('click', () => {
       stickyWindow.style.display = 'none';
     });
   });
-</script> it needs to work with this code I wonder if that is why it doesn't show up properly if you move it down certain px <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title | default: 'Francesca Loren' }}</title>
-  {{ content_for_header }}
-  <style>
-    * {box-sizing: border-box;}
-    body, html {
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
-    /* ==================== NAVBAR ==================== */
-    .navbar {
-      background-color: #fff;
-      border: 2px solid #000;
-      margin-top: 10px; /* Top whitespace */
-      margin-left: 11px; /* Left whitespace */
-      margin-right: 5px; /* Right whitespace */
-      background-color: #fff;
-      padding: 16px 20px; /* padding: 25px 30px;*/
-      position: relative;
-      z-index: 1001;
-      font-family: Arial, sans-serif;
-     width: calc(100% - 23px);
-    }
-    .navbar-inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      margin: 0 auto;
-    }
-    .logo-link {
-      color: #000;
-      font-size: 36px;
-      font-weight: bold;
-      text-decoration: none;
-      font-style: italic;
-      white-space: nowrap;
-    }
-    /* ==================== IMAGES ==================== */
-    .image-container-1 {
-      width: 100%;
-      position: relative;
-      padding: 0 15px; /* Same side padding as navbar for perfect alignment */
-      margin-top: 10px;
-    }
-    .image-1 {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      display: block;
-      border: 2px solid #000;
-    }
-/* ==================== DESKTOP ONLY - First Main Image ==================== */
-@media screen and (min-width: 769px) {
-  .image-container-1 {
-    margin-top: 10px;
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 100%;
-    height: 4400px; /* ← Main height you should start with */
-    box-sizing: border-box;
-    display: grid;
-    position: relative;
-    z-index: 1;
-    overflow: visible;
-   
-    /* Optional improvements for desktop */
-    /* max-width: 1400px; */ /* uncomment + add margin: 0 auto; if you want it centered/not full bleed */
-    /* margin: 10px auto 0; */
-  }
-  .image-1 {
-    width: 100%;
-    height: 36.7%; /* Changed from 36.7% → 100% so it fills the container properly */
-    object-fit: cover;
-    display: block;
-    z-index: 2;
-    border: 2px solid black;
-  }
-}
-  
-/* ==================== FOOTER / COPYRIGHT ==================== */
-     /* Footer */
-    footer {
-      width: 100%;
-      position: static;
-    }
-  .copyright_text {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 25px 0;
-      font-size: 20px; /* Desktop font size */
-    }
-/* ==================== RESPONSIVE ==================== */
-@media screen and (max-width: 768px) {
-  .navbar {
-    margin: 12px 11px 0px 11px;
-    padding: 8px 15px; /* Reduced vertical padding → makes navbar shorter */
-    width: calc(100% - 22px);
-  }
- 
-  .logo-link {
-    font-size: 18px; /* Slightly smaller text to help with height */
-  }
- 
-  .image-container-1 {
-    padding: 0 11px;
-    margin-top: 5px;
-    margin-bottom: 100px;}
-.copyright_text {
-     
-        font-size: 16px; /* Smaller font size on mobile */
-      }
-  </style>
-</head>
-<body>
-  <nav class="navbar">
-    <div class="navbar-inner">
-      <a href="/" class="logo-link">MAISON ARLECCHINO</a>
-    </div>
-  </nav>
-  <main>
-    {{ content_for_layout }}
-  </main>
-{% include 'sticky-note' %}
-  {% section 'footer' %}
-  {{ content_for_footer }}
-</body>
-</html>
+</script>
