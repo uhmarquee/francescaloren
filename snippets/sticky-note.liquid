@@ -145,25 +145,39 @@
     transform: translateX(-165%) !important;
 }
 
-/* Responsive */
+/* ==================== RESPONSIVE RULES ==================== */
+/* These rules automatically adjust the sticky note based on screen size */
+
 @media screen and (max-width: 1024px) {
-    .sticky-note { width: 460px; height: 380px; }
+    /* TABLETS & Small Laptops */
+    .sticky-note { 
+        width: 460px; 
+        height: 380px; 
+    }
 }
 
 @media screen and (max-width: 1500px) {
+    /* MOBILE PHONES + Smaller Desktops */
+    /* This is the main mobile rule - applies to most phones */
     .sticky-note {
         top: 900px !important;
         margin-top: 650px !important;
         left: 50% !important;
-        transform: translateX(-50%) !important;
+        transform: translateX(-80%) !important;
         width: 60vw;
         height: 280px;
     }
 }
 
 @media screen and (max-width: 480px) {
-    .sticky-note { top: 70px !important; height: 280px; }
-    .stickynote-content textarea { font-size: 14.5px; }
+    /* VERY SMALL PHONES (iPhone SE, older Androids, etc.) */
+    .sticky-note { 
+        top: 70px !important; 
+        height: 280px; 
+    }
+    .stickynote-content textarea { 
+        font-size: 14.5px; 
+    }
 }
 </style>
 
