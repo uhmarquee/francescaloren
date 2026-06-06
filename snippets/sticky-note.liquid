@@ -31,7 +31,7 @@
     z-index: 9999;
     overflow: hidden;
     font-family: Arial, sans-serif;
-    transition: width 0.25s ease, height 0.25s ease;
+    transition: width 0.25s ease, height 0.25s ease, transform 0.25s ease;
 }
 
 .title-bar {
@@ -138,10 +138,11 @@
 .minimized { height: 25px !important; overflow: hidden; }
 
 .enlarged {
-    width: 820px !important;   /* slightly larger as you asked */
+    width: 820px !important;
     height: 720px !important;
     z-index: 10000;
-    /* NO top/left/transform changes — keeps exact current position */
+    /* Moves it a bit to the right while keeping left side aligned */
+    transform: translateX(-165%) !important;
 }
 
 /* Responsive */
@@ -181,12 +182,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function saveOriginalStyles() {
         originalStyles = {
             width: stickyWindow.style.width || getComputedStyle(stickyWindow).width,
-            height: stickyWindow.style.height || getComputedStyle(stickyWindow).height
-            // We deliberately do NOT save/restore top/left/transform for maximize
+            height: stickyWindow.style.height || getComputedStyle(stickyWindow).height,
+            transform: stickyWindow.style.transform
         };
     }
 
-    // Dragging (improved offset calculation)
+    // Dragging
     let isDragging = false;
     let offsetX, offsetY;
 
@@ -228,11 +229,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Maximize — only changes size, keeps exact position
+    // Maximize - enlarges + slight right shift
     maxBtn.addEventListener('click', () => {
         if (isEnlarged) {
             stickyWindow.style.width = originalStyles.width;
             stickyWindow.style.height = originalStyles.height;
+            stickyWindow.style.transform = originalStyles.transform;
             stickyWindow.classList.remove('enlarged');
             isEnlarged = false;
         } else {
@@ -242,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Close (hides but returns on refresh)
+    // Close
     closeBtn.addEventListener('click', () => {
         stickyWindow.style.display = 'none';
     });
