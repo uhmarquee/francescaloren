@@ -16,28 +16,26 @@
 
 <style>
   .sticky-note {
-    margin-top: 800px;
     position: fixed !important;
     top: 650px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 50% !important;
+    transform: translateX(-50%) !important;
     width: 500px;
+    max-width: 92vw !important;
     height: 400px;
     background: #fff59d;
     border: 3px solid #e0c040;
-    box-shadow: 8px 8px 25px rgba(0, 0, 0, 0.5);
-    z-index: 9999;
+    box-shadow: 8px 8px 25px rgba(0,0,0,0.5);
+    z-index: 99999 !important;
     overflow: hidden;
   }
 
-  /* ==================== MOBILE FIX ==================== */
+  /* ==================== MOBILE OVERRIDE ==================== */
   @media screen and (max-width: 768px) {
     .sticky-note {
-      top: 1800px !important;     /* Much lower on mobile */
+      top: 1800px !important;
       width: 92vw !important;
-      height: 340px !important;
-      left: 50% !important;
-      transform: translateX(-50%) !important;
+      height: 360px !important;
     }
   }
 
@@ -52,14 +50,8 @@
     user-select: none;
     height: 32px;
   }
-  .title {
-    font-weight: bold;
-    font-size: 14px;
-  }
-  .buttons {
-    display: flex;
-    gap: 4px;
-  }
+  .title { font-weight: bold; font-size: 14px; }
+  .buttons { display: flex; gap: 4px; }
   .btn {
     width: 24px;
     height: 22px;
@@ -73,10 +65,8 @@
     justify-content: center;
     cursor: pointer;
   }
-  .close-btn:hover {
-    background: #e51400;
-    color: white;
-  }
+  .close-btn:hover { background: #e51400; color: white; }
+
   .stickynote-content {
     height: calc(100% - 32px);
     padding: 15px;
@@ -103,15 +93,18 @@
     const maxBtn = document.getElementById('maxBtn');
     const closeBtn = document.getElementById('closeBtn');
     const contentArea = document.getElementById('contentArea');
+
     let isMaximized = false;
     let isDragging = false;
     let offsetX, offsetY;
+
     titleBar.addEventListener('mousedown', (e) => {
       if (e.target.tagName === 'BUTTON') return;
       isDragging = true;
       offsetX = e.clientX - stickyWindow.offsetLeft;
       offsetY = e.clientY - stickyWindow.offsetTop;
     });
+
     document.addEventListener('mousemove', (e) => {
       if (isDragging) {
         stickyWindow.style.left = (e.clientX - offsetX) + 'px';
@@ -119,16 +112,19 @@
         stickyWindow.style.transform = 'none';
       }
     });
+
     document.addEventListener('mouseup', () => isDragging = false);
+
     minBtn.addEventListener('click', () => {
       contentArea.style.display = 'none';
       stickyWindow.style.height = '32px';
     });
+
     maxBtn.addEventListener('click', () => {
       if (!isMaximized) {
         stickyWindow.style.width = '90vw';
-        stickyWindow.style.height = '85vh';
-        stickyWindow.style.top = '5vh';
+        stickyWindow.style.height = '75vh';
+        stickyWindow.style.top = '10vh';
         stickyWindow.style.left = '5vw';
         stickyWindow.style.transform = 'none';
         maxBtn.textContent = '❐';
@@ -144,6 +140,7 @@
       }
       contentArea.style.display = 'block';
     });
+
     closeBtn.addEventListener('click', () => {
       stickyWindow.style.display = 'none';
     });
