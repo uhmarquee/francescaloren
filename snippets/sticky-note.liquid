@@ -141,8 +141,7 @@
     width: 820px !important;
     height: 720px !important;
     z-index: 10000;
-    /* Moves it a bit to the right while keeping left side aligned */
-    transform: translateX(-165%) !important;
+    /* Desktop stays at original -211% position */
 }
 
 /* ==================== RESPONSIVE RULES ==================== */
@@ -166,6 +165,15 @@
         transform: translateX(-80%) !important;
         width: 60vw;
         height: 280px;
+    }
+}
+
+/* ENLARGED on mobile - expands mainly to the right */
+    .sticky-note.enlarged {
+        width: 85vw !important;
+        height: 420px !important;
+        transform: translateX(-580%) !important;
+        left: 50% !important;
     }
 }
 
