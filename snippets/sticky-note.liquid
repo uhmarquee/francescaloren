@@ -92,6 +92,14 @@
   }
 
   /* ================= RESPONSIVE SIZES ================= */
+/* Tablets */
+  @media screen and (max-width: 1024px) {
+    .sticky-note {
+      width: 460px;
+      height: 380px;
+    }
+  }
+
 
   /* Mobile phones - FORCE it to show */
   @media screen and (max-width: 1500px) {
@@ -107,7 +115,16 @@
     }
   }
 
-
+/* Very small phones */
+  @media screen and (max-width: 480px) {
+    .sticky-note {
+      top: 70px !important;
+      height: 280px;
+    }
+    .stickynote-content textarea {
+      font-size: 14.5px;
+    }
+  }
 </style>
 
 <script>
