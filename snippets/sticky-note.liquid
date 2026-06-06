@@ -17,13 +17,13 @@
 
 <style>
   .sticky-note {
-    margin-top: 800px;
-  position: fixed !important;           /* Keeps it in one place while scrolling */
-    top: 650px;                /* Move this number higher/lower as needed */
+    position: fixed !important;
+    top: 550px;                    /* Good starting point for mobile + desktop */
     left: 50%;
     transform: translateX(-50%);
-    width: 500px;
-    height: 400px;
+    width: 480px;
+    max-width: 92vw;               /* Prevents it from being too wide on phone */
+    height: 380px;
     background: #fff59d;
     border: 3px solid #e0c040;
     box-shadow: 8px 8px 25px rgba(0, 0, 0, 0.5);
@@ -43,15 +43,9 @@
     height: 32px;
   }
 
-  .title {
-    font-weight: bold;
-    font-size: 14px;
-  }
+  .title { font-weight: bold; font-size: 14px; }
 
-  .buttons {
-    display: flex;
-    gap: 4px;
-  }
+  .buttons { display: flex; gap: 4px; }
 
   .btn {
     width: 24px;
@@ -67,10 +61,7 @@
     cursor: pointer;
   }
 
-  .close-btn:hover {
-    background: #e51400;
-    color: white;
-  }
+  .close-btn:hover { background: #e51400; color: white; }
 
   .stickynote-content {
     height: calc(100% - 32px);
@@ -84,10 +75,19 @@
     background: transparent;
     border: none;
     outline: none;
-    font-size: 16px;
+    font-size: 15.5px;
     line-height: 1.5;
     resize: none;
     font-family: Arial, sans-serif;
+  }
+
+  /* Mobile adjustments */
+  @media screen and (max-width: 768px) {
+    .sticky-note {
+      top: 400px;           /* Lower on mobile */
+      width: 92vw;
+      height: 340px;
+    }
   }
 </style>
 
@@ -130,16 +130,16 @@
     maxBtn.addEventListener('click', () => {
       if (!isMaximized) {
         stickyWindow.style.width = '90vw';
-        stickyWindow.style.height = '85vh';
-        stickyWindow.style.top = '5vh';
+        stickyWindow.style.height = '75vh';
+        stickyWindow.style.top = '10vh';
         stickyWindow.style.left = '5vw';
         stickyWindow.style.transform = 'none';
         maxBtn.textContent = '❐';
         isMaximized = true;
       } else {
-        stickyWindow.style.width = '500px';
-        stickyWindow.style.height = '400px';
-        stickyWindow.style.top = '650px';
+        stickyWindow.style.width = '92vw';
+        stickyWindow.style.height = '340px';
+        stickyWindow.style.top = '400px';
         stickyWindow.style.left = '50%';
         stickyWindow.style.transform = 'translateX(-50%)';
         maxBtn.textContent = '□';
