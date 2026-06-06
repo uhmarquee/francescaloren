@@ -18,12 +18,12 @@
 <style>
   .sticky-note {
     position: fixed !important;
-    top: 550px;                    /* Good starting point for mobile + desktop */
+    top: 4600px;               /* ← This puts it below your 4400px image container */
     left: 50%;
     transform: translateX(-50%);
-    width: 480px;
-    max-width: 92vw;               /* Prevents it from being too wide on phone */
-    height: 380px;
+    width: 500px;
+    max-width: 92vw;
+    height: 400px;
     background: #fff59d;
     border: 3px solid #e0c040;
     box-shadow: 8px 8px 25px rgba(0, 0, 0, 0.5);
@@ -75,16 +75,16 @@
     background: transparent;
     border: none;
     outline: none;
-    font-size: 15.5px;
+    font-size: 16px;
     line-height: 1.5;
     resize: none;
     font-family: Arial, sans-serif;
   }
 
-  /* Mobile adjustments */
+  /* Mobile adjustment */
   @media screen and (max-width: 768px) {
     .sticky-note {
-      top: 400px;           /* Lower on mobile */
+      top: 2400px;   /* Lower on mobile - adjust as needed */
       width: 92vw;
       height: 340px;
     }
@@ -137,9 +137,9 @@
         maxBtn.textContent = '❐';
         isMaximized = true;
       } else {
-        stickyWindow.style.width = '92vw';
-        stickyWindow.style.height = '340px';
-        stickyWindow.style.top = '400px';
+        stickyWindow.style.width = '500px';
+        stickyWindow.style.height = '400px';
+        stickyWindow.style.top = '4600px';
         stickyWindow.style.left = '50%';
         stickyWindow.style.transform = 'translateX(-50%)';
         maxBtn.textContent = '□';
