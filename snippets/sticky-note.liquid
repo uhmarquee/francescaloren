@@ -31,7 +31,7 @@
     z-index: 9999;
     overflow: hidden;
     font-family: Arial, sans-serif;
-    transition: all 0.25s ease;
+    transition: width 0.25s ease, height 0.25s ease;
 }
 
 .title-bar {
@@ -75,7 +75,7 @@
     background-color: #c0c0c0;
 }
 
-/* Windows 95 button icons */
+/* Windows 95 icons */
 .minimize-btn::before {
     content: '';
     position: absolute;
@@ -133,32 +133,18 @@
     color: black;
 }
 
-/* Minimize: Only title bar visible */
-.minimized .stickynote-content {
-    display: none;
-}
-.minimized {
-    height: 25px !important;
-    overflow: hidden;
-}
+/* States */
+.minimized .stickynote-content { display: none; }
+.minimized { height: 25px !important; overflow: hidden; }
 
-/* Enlarge: No jumping, centered smoothly */
 .enlarged {
-    width: 900px !important;
-    height: 1000px !important;
+    width: 820px !important;   /* slightly larger as you asked */
+    height: 720px !important;
     z-index: 10000;
-    top: 50px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    margin-top: 0 !important;
+    /* NO top/left/transform changes — keeps exact current position */
 }
 
-.enlarged .stickynote-content {
-    height: calc(100% - 25px);
-    overflow: auto;
-}
-
-/* Responsive (kept your previous rules) */
+/* Responsive */
 @media screen and (max-width: 1024px) {
     .sticky-note { width: 460px; height: 380px; }
 }
@@ -195,25 +181,23 @@ document.addEventListener('DOMContentLoaded', function() {
     function saveOriginalStyles() {
         originalStyles = {
             width: stickyWindow.style.width || getComputedStyle(stickyWindow).width,
-            height: stickyWindow.style.height || getComputedStyle(stickyWindow).height,
-            top: stickyWindow.style.top || getComputedStyle(stickyWindow).top,
-            left: stickyWindow.style.left || getComputedStyle(stickyWindow).left,
-            transform: stickyWindow.style.transform || '',
-            marginTop: stickyWindow.style.marginTop || ''
+            height: stickyWindow.style.height || getComputedStyle(stickyWindow).height
+            // We deliberately do NOT save/restore top/left/transform for maximize
         };
     }
 
-    // Dragging
+    // Dragging (improved offset calculation)
     let isDragging = false;
     let offsetX, offsetY;
 
     function startDrag(e) {
         if (e.target.tagName === 'BUTTON') return;
         isDragging = true;
+        const rect = stickyWindow.getBoundingClientRect();
         const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
         const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-        offsetX = clientX - stickyWindow.getBoundingClientRect().left;
-        offsetY = clientY - stickyWindow.getBoundingClientRect().top;
+        offsetX = clientX - rect.left;
+        offsetY = clientY - rect.top;
         stickyWindow.style.transform = 'none';
     }
 
@@ -233,28 +217,22 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('touchmove', drag, { passive: true });
     document.addEventListener('touchend', () => isDragging = false);
 
-    // Minimize → only title bar
+    // Minimize
     minBtn.addEventListener('click', () => {
         if (isMinimized) {
             stickyWindow.classList.remove('minimized');
             isMinimized = false;
         } else {
-            saveOriginalStyles(); // optional
             stickyWindow.classList.add('minimized');
             isMinimized = true;
         }
     });
 
-    // Maximize → no jumping
+    // Maximize — only changes size, keeps exact position
     maxBtn.addEventListener('click', () => {
         if (isEnlarged) {
-            // Restore original
             stickyWindow.style.width = originalStyles.width;
             stickyWindow.style.height = originalStyles.height;
-            stickyWindow.style.top = originalStyles.top;
-            stickyWindow.style.left = originalStyles.left;
-            stickyWindow.style.transform = originalStyles.transform;
-            stickyWindow.style.marginTop = originalStyles.marginTop;
             stickyWindow.classList.remove('enlarged');
             isEnlarged = false;
         } else {
@@ -264,12 +242,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Close → hides but returns on refresh
+    // Close (hides but returns on refresh)
     closeBtn.addEventListener('click', () => {
         stickyWindow.style.display = 'none';
     });
 
-    // Initial save
     saveOriginalStyles();
 });
 </script>
