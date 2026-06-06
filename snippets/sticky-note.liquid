@@ -1,5 +1,4 @@
 <!-- =============== STICKY NOTE =============== -->
-
 <div class="sticky-note" id="stickyWindow">
   <div class="title-bar" id="titleBar">
     <span class="title">Sticky Note</span>
@@ -18,17 +17,18 @@
 <style>
   .sticky-note {
     position: fixed !important;
-    top: 550px;                    /* Good starting point for mobile + desktop */
+    top: 550px;
     left: 50%;
     transform: translateX(-50%);
-    width: 480px;
-    max-width: 92vw;               /* Prevents it from being too wide on phone */
-    height: 380px;
+    width: 520px;           /* Large on desktop */
+    max-width: 92vw;
+    height: 420px;          /* Tall on desktop */
     background: #fff59d;
     border: 3px solid #e0c040;
     box-shadow: 8px 8px 25px rgba(0, 0, 0, 0.5);
     z-index: 9999;
     overflow: hidden;
+    transition: all 0.2s ease;
   }
 
   .title-bar {
@@ -44,7 +44,6 @@
   }
 
   .title { font-weight: bold; font-size: 14px; }
-
   .buttons { display: flex; gap: 4px; }
 
   .btn {
@@ -60,7 +59,6 @@
     justify-content: center;
     cursor: pointer;
   }
-
   .close-btn:hover { background: #e51400; color: white; }
 
   .stickynote-content {
@@ -81,12 +79,32 @@
     font-family: Arial, sans-serif;
   }
 
-  /* Mobile adjustments */
+  /* ================= RESPONSIVE SIZES ================= */
+
+  /* Tablets */
+  @media screen and (max-width: 1024px) {
+    .sticky-note {
+      width: 460px;
+      height: 380px;
+    }
+  }
+
+  /* Mobile phones */
   @media screen and (max-width: 768px) {
     .sticky-note {
-      top: 400px;           /* Lower on mobile */
-      width: 92vw;
-      height: 340px;
+      top: 380px;
+      width: 88vw;
+      height: 300px;
+    }
+  }
+
+  /* Very small phones */
+  @media screen and (max-width: 480px) {
+    .sticky-note {
+      height: 270px;
+    }
+    .stickynote-content textarea {
+      font-size: 14.5px;
     }
   }
 </style>
@@ -101,22 +119,33 @@
     const contentArea = document.getElementById('contentArea');
 
     let isMaximized = false;
-
     let isDragging = false;
     let offsetX, offsetY;
+    let originalStyles = {};   // Store original size/position
+
+    // Save original styles on load
+    function saveOriginalStyles() {
+      originalStyles = {
+        width: stickyWindow.style.width,
+        height: stickyWindow.style.height,
+        top: stickyWindow.style.top,
+        left: stickyWindow.style.left,
+        transform: stickyWindow.style.transform
+      };
+    }
 
     titleBar.addEventListener('mousedown', (e) => {
       if (e.target.tagName === 'BUTTON') return;
       isDragging = true;
       offsetX = e.clientX - stickyWindow.offsetLeft;
       offsetY = e.clientY - stickyWindow.offsetTop;
+      stickyWindow.style.transform = 'none';
     });
 
     document.addEventListener('mousemove', (e) => {
       if (isDragging) {
         stickyWindow.style.left = (e.clientX - offsetX) + 'px';
         stickyWindow.style.top = (e.clientY - offsetY) + 'px';
-        stickyWindow.style.transform = 'none';
       }
     });
 
@@ -129,6 +158,9 @@
 
     maxBtn.addEventListener('click', () => {
       if (!isMaximized) {
+        // Save current state before maximizing
+        saveOriginalStyles();
+
         stickyWindow.style.width = '90vw';
         stickyWindow.style.height = '75vh';
         stickyWindow.style.top = '10vh';
@@ -137,11 +169,13 @@
         maxBtn.textContent = '❐';
         isMaximized = true;
       } else {
-        stickyWindow.style.width = '92vw';
-        stickyWindow.style.height = '340px';
-        stickyWindow.style.top = '400px';
-        stickyWindow.style.left = '50%';
-        stickyWindow.style.transform = 'translateX(-50%)';
+        // Restore to original (responsive) size
+        stickyWindow.style.width = originalStyles.width || '';
+        stickyWindow.style.height = originalStyles.height || '';
+        stickyWindow.style.top = originalStyles.top || '';
+        stickyWindow.style.left = originalStyles.left || '';
+        stickyWindow.style.transform = originalStyles.transform || 'translateX(-50%)';
+        
         maxBtn.textContent = '□';
         isMaximized = false;
       }
@@ -151,5 +185,8 @@
     closeBtn.addEventListener('click', () => {
       stickyWindow.style.display = 'none';
     });
+
+    // Save original styles after everything loads
+    saveOriginalStyles();
   });
 </script>
