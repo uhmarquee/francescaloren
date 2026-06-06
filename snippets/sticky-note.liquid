@@ -15,7 +15,6 @@
 </div>
 
 <style>
-  /* ==================== OVERALL PAGE WIDTH ==================== */
   body {
     max-width: 5000px;
     margin: 0 auto;
@@ -23,11 +22,11 @@
   }
 
   .sticky-note {
-    position: absolute;           /* Keep absolute for desktop as you like it */
+    position: absolute;
     top: 1200px;
     margin-top: 900px;
     left: 50%;
-    transform: translateX(-211%);   /* Fixed the weird -211% */
+    transform: translateX(-50%);
     width: 700px;
     max-width: 92vw;
     height: 600px;
@@ -36,7 +35,7 @@
     box-shadow: 8px 8px 25px rgba(0, 0, 0, 0.5);
     z-index: 9999;
     overflow: hidden;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
   }
 
   .title-bar {
@@ -68,10 +67,7 @@
     cursor: pointer;
   }
 
-  .close-btn:hover {
-    background: #e51400;
-    color: white;
-  }
+  .close-btn:hover { background: #e51400; color: white; }
 
   .stickynote-content {
     height: calc(100% - 32px);
@@ -92,7 +88,6 @@
   }
 
   /* ================= RESPONSIVE SIZES ================= */
-/* Tablets */
   @media screen and (max-width: 1024px) {
     .sticky-note {
       width: 460px;
@@ -100,29 +95,21 @@
     }
   }
 
-
-  /* Mobile phones - FORCE it to show */
-  @media screen and (max-width: 1500px) {
+  @media screen and (max-width: 768px) {
     .sticky-note {
-      position: absolute !important;     /* Most important change */
-      top: 900px !important;          /* Adjust this number if needed (higher = lower on screen) */
+      position: fixed !important;
+      top: 120px !important;
       left: 50% !important;
-      transform: translateX(-80%) !important;
-      margin-top: 650px !important;
-      width: 60vw;
-      height: 280px;
-      z-index: 99999;
+      transform: translateX(-50%) !important;
+      margin-top: 0 !important;
+      width: 88vw;
+      height: 300px;
     }
   }
 
-/* Very small phones */
   @media screen and (max-width: 480px) {
     .sticky-note {
-      top: 70px !important;
-      height: 280px;
-    }
-    .stickynote-content textarea {
-      font-size: 14.5px;
+      height: 260px;
     }
   }
 </style>
@@ -135,7 +122,7 @@
     const maxBtn = document.getElementById('maxBtn');
     const closeBtn = document.getElementById('closeBtn');
     const contentArea = document.getElementById('contentArea');
-    
+
     let isMaximized = false;
     let isDragging = false;
     let offsetX, offsetY;
@@ -147,40 +134,33 @@
         height: stickyWindow.style.height,
         top: stickyWindow.style.top,
         left: stickyWindow.style.left,
-        transform: stickyWindow.style.transform
+        transform: stickyWindow.style.transform,
+        marginTop: stickyWindow.style.marginTop
       };
     }
 
-    // Support both mouse and touch dragging (important for mobile)
+    // Dragging (mouse + touch)
     function startDrag(e) {
       if (e.target.tagName === 'BUTTON') return;
-      
       isDragging = true;
       const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
       const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-      
       offsetX = clientX - stickyWindow.offsetLeft;
       offsetY = clientY - stickyWindow.offsetTop;
-      
       stickyWindow.style.transform = 'none';
     }
 
     function drag(e) {
       if (!isDragging) return;
-      
       const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
       const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-      
       stickyWindow.style.left = (clientX - offsetX) + 'px';
       stickyWindow.style.top = (clientY - offsetY) + 'px';
     }
 
-    // Mouse events
     titleBar.addEventListener('mousedown', startDrag);
     document.addEventListener('mousemove', drag);
     document.addEventListener('mouseup', () => isDragging = false);
-
-    // Touch events (for mobile)
     titleBar.addEventListener('touchstart', startDrag, { passive: true });
     document.addEventListener('touchmove', drag, { passive: true });
     document.addEventListener('touchend', () => isDragging = false);
@@ -193,20 +173,20 @@
     maxBtn.addEventListener('click', () => {
       if (!isMaximized) {
         saveOriginalStyles();
-        stickyWindow.style.width = '90vw';
-        stickyWindow.style.height = '75vh';
-        stickyWindow.style.top = '10vh';
-        stickyWindow.style.left = '5vw';
-        stickyWindow.style.transform = 'none';
+        
+        // Resize without moving position
+        stickyWindow.style.width = '85vw';
+        stickyWindow.style.height = '520px';           // Desktop big size
         maxBtn.textContent = '❐';
         isMaximized = true;
       } else {
-        // Restore
+        // Restore original position and size
         stickyWindow.style.width = originalStyles.width || '';
         stickyWindow.style.height = originalStyles.height || '';
         stickyWindow.style.top = originalStyles.top || '';
         stickyWindow.style.left = originalStyles.left || '';
-        stickyWindow.style.transform = originalStyles.transform || 'translateX(-50%)';
+        stickyWindow.style.transform = originalStyles.transform || '';
+        stickyWindow.style.marginTop = originalStyles.marginTop || '';
         
         maxBtn.textContent = '□';
         isMaximized = false;
@@ -218,7 +198,6 @@
       stickyWindow.style.display = 'none';
     });
 
-    // Save initial styles
     saveOriginalStyles();
   });
 </script>
