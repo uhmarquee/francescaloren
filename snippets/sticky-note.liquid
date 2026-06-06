@@ -29,6 +29,18 @@
     z-index: 9999;
     overflow: hidden;
   }
+
+  /* ==================== MOBILE FIX ==================== */
+  @media screen and (max-width: 768px) {
+    .sticky-note {
+      top: 1800px !important;     /* Much lower on mobile */
+      width: 92vw !important;
+      height: 340px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+    }
+  }
+
   .title-bar {
     background: linear-gradient(to right, #000080, #1084d0);
     color: white;
