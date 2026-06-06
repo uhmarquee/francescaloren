@@ -17,14 +17,14 @@
 <style>
   /* ==================== OVERALL PAGE WIDTH ==================== */
   body {
-    max-width: 3500px;     /* ← This controls the maximum width of the entire website on desktop */
-    margin: 0 auto;        /* Centers the page */
+    max-width: 3500px;
+    margin: 0 auto;
     background-color: #fff;
   }
 
   .sticky-note {
     position: fixed !important;
-    top: 120px;                    /* Changed from margin-top — this is correct for fixed position */
+    top: 120px;
     left: 50%;
     transform: translateX(-50%);
     width: 520px;
@@ -51,9 +51,8 @@
   }
 
   .title { font-weight: bold; font-size: 14px; }
-  
   .buttons { display: flex; gap: 4px; }
-  
+
   .btn {
     width: 24px;
     height: 22px;
@@ -67,15 +66,18 @@
     justify-content: center;
     cursor: pointer;
   }
-  
-  .close-btn:hover { background: #e51400; color: white; }
-  
+
+  .close-btn:hover { 
+    background: #e51400; 
+    color: white; 
+  }
+
   .stickynote-content {
     height: calc(100% - 32px);
     padding: 15px;
     background: #fff59d;
   }
-  
+
   .stickynote-content textarea {
     width: 100%;
     height: 100%;
@@ -89,7 +91,6 @@
   }
 
   /* ================= RESPONSIVE SIZES ================= */
-  /* Tablets */
   @media screen and (max-width: 1024px) {
     .sticky-note {
       width: 460px;
@@ -97,7 +98,6 @@
     }
   }
 
-  /* Mobile phones */
   @media screen and (max-width: 768px) {
     .sticky-note {
       top: 80px;
@@ -106,7 +106,6 @@
     }
   }
 
-  /* Very small phones */
   @media screen and (max-width: 480px) {
     .sticky-note {
       height: 270px;
@@ -115,34 +114,7 @@
       font-size: 14.5px;
     }
   }
-</style>  .close-btn:hover { background: #e51400; color: white; }
-
-  .stickynote-content {
-    height: calc(100% - 32px);
-    padding: 15px;
-    background: #fff59d;
-  }
-
-  .stickynote-content textarea {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 15.5px;
-    line-height: 1.5;
-    resize: none;
-    font-family: Arial, sans-serif;
-  }
-
-  /* ================= RESPONSIVE SIZES ================= */
-
-
-
-
-
 </style>
-
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const stickyWindow = document.getElementById('stickyWindow');
