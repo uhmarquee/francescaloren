@@ -90,7 +90,28 @@
     resize: none;
     font-family: Arial, sans-serif;
   }
+/* Sticky Note Window Behavior - matching your image containers */
+.minimized {
+    height: 32px !important;
+}
 
+.minimized .stickynote-content {
+    display: none;
+}
+
+.enlarged {
+    width: 85vw !important;
+    height: 520px !important;     /* Desktop enlarged size */
+    z-index: 99999 !important;
+}
+
+/* Mobile enlarged size */
+@media screen and (max-width: 768px) {
+    .enlarged {
+        width: 92vw !important;
+        height: 420px !important;
+    }
+}
   /* ================= RESPONSIVE SIZES ================= */
 /* Tablets */
   @media screen and (max-width: 1024px) {
@@ -128,97 +149,70 @@
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+'use strict';
+
+document.addEventListener('DOMContentLoaded', function() {
     const stickyWindow = document.getElementById('stickyWindow');
-    const titleBar = document.getElementById('titleBar');
     const minBtn = document.getElementById('minBtn');
     const maxBtn = document.getElementById('maxBtn');
     const closeBtn = document.getElementById('closeBtn');
-    const contentArea = document.getElementById('contentArea');
-    
-    let isMaximized = false;
-    let isDragging = false;
-    let offsetX, offsetY;
-    let originalStyles = {};
 
-    function saveOriginalStyles() {
-      originalStyles = {
-        width: stickyWindow.style.width,
-        height: stickyWindow.style.height,
-        top: stickyWindow.style.top,
-        left: stickyWindow.style.left,
-        transform: stickyWindow.style.transform
-      };
+    // State tracking (same pattern as your image containers)
+    const stickyState = {
+        isMinimized: false,
+        isEnlarged: false,
+        originalWidth: '',
+        originalHeight: '',
+        originalTop: '',
+        originalLeft: ''
+    };
+
+    function saveOriginalState() {
+        stickyState.originalWidth = stickyWindow.style.width || getComputedStyle(stickyWindow).width;
+        stickyState.originalHeight = stickyWindow.style.height || getComputedStyle(stickyWindow).height;
+        stickyState.originalTop = stickyWindow.style.top;
+        stickyState.originalLeft = stickyWindow.style.left;
     }
 
-    // Support both mouse and touch dragging (important for mobile)
-    function startDrag(e) {
-      if (e.target.tagName === 'BUTTON') return;
-      
-      isDragging = true;
-      const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-      const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-      
-      offsetX = clientX - stickyWindow.offsetLeft;
-      offsetY = clientY - stickyWindow.offsetTop;
-      
-      stickyWindow.style.transform = 'none';
-    }
-
-    function drag(e) {
-      if (!isDragging) return;
-      
-      const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-      const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-      
-      stickyWindow.style.left = (clientX - offsetX) + 'px';
-      stickyWindow.style.top = (clientY - offsetY) + 'px';
-    }
-
-    // Mouse events
-    titleBar.addEventListener('mousedown', startDrag);
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('mouseup', () => isDragging = false);
-
-    // Touch events (for mobile)
-    titleBar.addEventListener('touchstart', startDrag, { passive: true });
-    document.addEventListener('touchmove', drag, { passive: true });
-    document.addEventListener('touchend', () => isDragging = false);
-
-    minBtn.addEventListener('click', () => {
-      contentArea.style.display = 'none';
-      stickyWindow.style.height = '32px';
+    // Minimize (same as your other containers)
+    minBtn.addEventListener('click', function() {
+        if (stickyState.isMinimized) {
+            stickyWindow.classList.remove('minimized');
+            stickyState.isMinimized = false;
+        } else {
+            stickyWindow.classList.add('minimized');
+            stickyState.isMinimized = true;
+        }
     });
 
-    maxBtn.addEventListener('click', () => {
-      if (!isMaximized) {
-        saveOriginalStyles();
-        stickyWindow.style.width = '90vw';
-        stickyWindow.style.height = '75vh';
-        stickyWindow.style.top = '10vh';
-        stickyWindow.style.left = '5vw';
-        stickyWindow.style.transform = 'none';
-        maxBtn.textContent = '❐';
-        isMaximized = true;
-      } else {
-        // Restore
-        stickyWindow.style.width = originalStyles.width || '';
-        stickyWindow.style.height = originalStyles.height || '';
-        stickyWindow.style.top = originalStyles.top || '';
-        stickyWindow.style.left = originalStyles.left || '';
-        stickyWindow.style.transform = originalStyles.transform || 'translateX(-50%)';
-        
-        maxBtn.textContent = '□';
-        isMaximized = false;
-      }
-      contentArea.style.display = 'block';
+    // Maximize / Restore (in-place, no jumping)
+    maxBtn.addEventListener('click', function() {
+        if (stickyState.isEnlarged) {
+            // Restore
+            stickyWindow.style.width = stickyState.originalWidth;
+            stickyWindow.style.height = stickyState.originalHeight;
+            stickyWindow.style.top = stickyState.originalTop;
+            stickyWindow.style.left = stickyState.originalLeft;
+            stickyWindow.classList.remove('enlarged');
+            maxBtn.textContent = '□';
+            stickyState.isEnlarged = false;
+        } else {
+            // Save current state first
+            saveOriginalState();
+            
+            // Enlarge without moving position
+            stickyWindow.classList.add('enlarged');
+            maxBtn.textContent = '❐';
+            stickyState.isEnlarged = true;
+        }
     });
 
-    closeBtn.addEventListener('click', () => {
-      stickyWindow.style.display = 'none';
+    // Close
+    closeBtn.addEventListener('click', function() {
+        stickyWindow.style.display = 'none';
     });
 
-    // Save initial styles
-    saveOriginalStyles();
-  });
+    // Initial save
+    saveOriginalState();
+});
 </script>
