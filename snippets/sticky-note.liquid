@@ -15,7 +15,7 @@
 </div>
 
 <style>
-/* ==================== STICKY NOTE STYLES (Windows 95 style) ==================== */
+/* ==================== STICKY NOTE STYLES ==================== */
 .sticky-note {
     position: absolute;
     top: 1200px;
@@ -31,7 +31,7 @@
     z-index: 9999;
     overflow: hidden;
     font-family: Arial, sans-serif;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .title-bar {
@@ -46,15 +46,9 @@
     height: 25px;
 }
 
-.title {
-    font-weight: bold;
-    font-size: 12px;
-}
+.title { font-weight: bold; font-size: 12px; }
 
-.buttons {
-    display: flex;
-    gap: 2px;
-}
+.buttons { display: flex; gap: 2px; }
 
 .btn {
     width: 16px;
@@ -81,7 +75,7 @@
     background-color: #c0c0c0;
 }
 
-/* Button icons (Windows 95 style) */
+/* Windows 95 button icons */
 .minimize-btn::before {
     content: '';
     position: absolute;
@@ -139,14 +133,16 @@
     color: black;
 }
 
-/* Minimize / Enlarge states */
+/* Minimize: Only title bar visible */
 .minimized .stickynote-content {
     display: none;
 }
 .minimized {
-    height: auto !important;
+    height: 25px !important;
+    overflow: hidden;
 }
 
+/* Enlarge: No jumping, centered smoothly */
 .enlarged {
     width: 900px !important;
     height: 1000px !important;
@@ -154,6 +150,7 @@
     top: 50px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
+    margin-top: 0 !important;
 }
 
 .enlarged .stickynote-content {
@@ -161,7 +158,7 @@
     overflow: auto;
 }
 
-/* Responsive */
+/* Responsive (kept your previous rules) */
 @media screen and (max-width: 1024px) {
     .sticky-note { width: 460px; height: 380px; }
 }
@@ -174,18 +171,12 @@
         transform: translateX(-50%) !important;
         width: 60vw;
         height: 280px;
-        z-index: 99999;
     }
 }
 
 @media screen and (max-width: 480px) {
-    .sticky-note {
-        top: 70px !important;
-        height: 280px;
-    }
-    .stickynote-content textarea {
-        font-size: 14.5px;
-    }
+    .sticky-note { top: 70px !important; height: 280px; }
+    .stickynote-content textarea { font-size: 14.5px; }
 }
 </style>
 
@@ -197,29 +188,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const maxBtn = document.getElementById('maxBtn');
     const closeBtn = document.getElementById('closeBtn');
 
-    // State tracking (same pattern as your windows containers)
     let isMinimized = false;
     let isEnlarged = false;
-    let originalStyles = {
-        width: '',
-        height: '',
-        top: '',
-        left: '',
-        transform: ''
-    };
+    let originalStyles = {};
 
-    // Save original position/size
     function saveOriginalStyles() {
         originalStyles = {
             width: stickyWindow.style.width || getComputedStyle(stickyWindow).width,
             height: stickyWindow.style.height || getComputedStyle(stickyWindow).height,
             top: stickyWindow.style.top || getComputedStyle(stickyWindow).top,
             left: stickyWindow.style.left || getComputedStyle(stickyWindow).left,
-            transform: stickyWindow.style.transform
+            transform: stickyWindow.style.transform || '',
+            marginTop: stickyWindow.style.marginTop || ''
         };
     }
 
-    // Dragging (mouse + touch)
+    // Dragging
     let isDragging = false;
     let offsetX, offsetY;
 
@@ -228,8 +212,8 @@ document.addEventListener('DOMContentLoaded', function() {
         isDragging = true;
         const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
         const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-        offsetX = clientX - stickyWindow.offsetLeft;
-        offsetY = clientY - stickyWindow.offsetTop;
+        offsetX = clientX - stickyWindow.getBoundingClientRect().left;
+        offsetY = clientY - stickyWindow.getBoundingClientRect().top;
         stickyWindow.style.transform = 'none';
     }
 
@@ -243,49 +227,49 @@ document.addEventListener('DOMContentLoaded', function() {
 
     titleBar.addEventListener('mousedown', startDrag);
     document.addEventListener('mousemove', drag);
-    document.addEventListener('mouseup', () => { isDragging = false; });
+    document.addEventListener('mouseup', () => isDragging = false);
 
     titleBar.addEventListener('touchstart', startDrag, { passive: true });
     document.addEventListener('touchmove', drag, { passive: true });
-    document.addEventListener('touchend', () => { isDragging = false; });
+    document.addEventListener('touchend', () => isDragging = false);
 
-    // Minimize
+    // Minimize → only title bar
     minBtn.addEventListener('click', () => {
         if (isMinimized) {
             stickyWindow.classList.remove('minimized');
             isMinimized = false;
         } else {
+            saveOriginalStyles(); // optional
             stickyWindow.classList.add('minimized');
             isMinimized = true;
         }
     });
 
-    // Maximize / Enlarge
+    // Maximize → no jumping
     maxBtn.addEventListener('click', () => {
         if (isEnlarged) {
-            // Restore
+            // Restore original
             stickyWindow.style.width = originalStyles.width;
             stickyWindow.style.height = originalStyles.height;
             stickyWindow.style.top = originalStyles.top;
             stickyWindow.style.left = originalStyles.left;
             stickyWindow.style.transform = originalStyles.transform;
+            stickyWindow.style.marginTop = originalStyles.marginTop;
             stickyWindow.classList.remove('enlarged');
             isEnlarged = false;
-            maxBtn.innerHTML = ''; // reset pseudo
         } else {
             saveOriginalStyles();
             stickyWindow.classList.add('enlarged');
             isEnlarged = true;
-            maxBtn.innerHTML = ''; // pseudo still works
         }
     });
 
-    // Close
+    // Close → hides but returns on refresh
     closeBtn.addEventListener('click', () => {
         stickyWindow.style.display = 'none';
     });
 
-    // Save initial styles
+    // Initial save
     saveOriginalStyles();
 });
 </script>
