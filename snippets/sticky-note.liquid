@@ -17,23 +17,23 @@
 <style>
   .sticky-note {
     position: fixed !important;
-    top: 0px;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+    top: 650px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 500px;
-    max-width: 92vw !important;
+    max-width: 92vw;
     height: 400px;
     background: #fff59d;
     border: 3px solid #e0c040;
-    box-shadow: 8px 8px 25px rgba(0,0,0,0.5);
+    box-shadow: 8px 8px 25px rgba(0, 0, 0, 0.5);
     z-index: 99999 !important;
     overflow: hidden;
   }
 
-  /* ==================== MOBILE OVERRIDE ==================== */
+  /* Mobile Fix */
   @media screen and (max-width: 768px) {
     .sticky-note {
-      top: 1800px !important;
+      top: 1200px !important;   /* Lower on mobile */
       width: 92vw !important;
       height: 360px !important;
     }
