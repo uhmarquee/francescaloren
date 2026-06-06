@@ -1,6 +1,3 @@
-
-
-
 <!-- =============== STICKY NOTE =============== -->
 <div class="sticky-note" id="stickyWindow">
   <div class="title-bar" id="titleBar">
@@ -18,26 +15,25 @@
 </div>
 
 <style>
-
-<!-- ==================== OVERALL PAGE WIDTH ==================== -->
-body {
-  max-width: 6000px;     <!-- ← Change this number to whatever you want -->
-  margin: 0 auto;        <!-- Centers the page-->
-  background-color: #fff; <!--Optional: prevents side gaps from showing body bg -->
-}
+  /* ==================== OVERALL PAGE WIDTH ==================== */
+  body {
+    max-width: 3500px;     /* ← This controls the maximum width of the entire website on desktop */
+    margin: 0 auto;        /* Centers the page */
+    background-color: #fff;
+  }
 
   .sticky-note {
-    top: 2000px;
+    position: fixed !important;
+    top: 120px;                    /* Changed from margin-top — this is correct for fixed position */
     left: 50%;
     transform: translateX(-50%);
-    width: 700px;           /* Large on desktop */
-    max-width: 100vw;
-    height: 800px;          /* Tall on desktop */
+    width: 520px;
+    max-width: 92vw;
+    height: 420px;
     background: #fff59d;
     border: 3px solid #e0c040;
     box-shadow: 8px 8px 25px rgba(0, 0, 0, 0.5);
     z-index: 9999;
-    position: absolute;
     overflow: hidden;
     transition: all 0.2s ease;
   }
@@ -55,8 +51,9 @@ body {
   }
 
   .title { font-weight: bold; font-size: 14px; }
+  
   .buttons { display: flex; gap: 4px; }
-
+  
   .btn {
     width: 24px;
     height: 22px;
@@ -70,7 +67,55 @@ body {
     justify-content: center;
     cursor: pointer;
   }
+  
   .close-btn:hover { background: #e51400; color: white; }
+  
+  .stickynote-content {
+    height: calc(100% - 32px);
+    padding: 15px;
+    background: #fff59d;
+  }
+  
+  .stickynote-content textarea {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 15.5px;
+    line-height: 1.5;
+    resize: none;
+    font-family: Arial, sans-serif;
+  }
+
+  /* ================= RESPONSIVE SIZES ================= */
+  /* Tablets */
+  @media screen and (max-width: 1024px) {
+    .sticky-note {
+      width: 460px;
+      height: 380px;
+    }
+  }
+
+  /* Mobile phones */
+  @media screen and (max-width: 768px) {
+    .sticky-note {
+      top: 80px;
+      width: 88vw;
+      height: 300px;
+    }
+  }
+
+  /* Very small phones */
+  @media screen and (max-width: 480px) {
+    .sticky-note {
+      height: 270px;
+    }
+    .stickynote-content textarea {
+      font-size: 14.5px;
+    }
+  }
+</style>  .close-btn:hover { background: #e51400; color: white; }
 
   .stickynote-content {
     height: calc(100% - 32px);
