@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('touchmove', drag, { passive: true });
     document.addEventListener('touchend', () => isDragging = false);
 
-   // Minimize
+  // Minimize
     minBtn.addEventListener('click', () => {
         if (isMinimized) {
             stickyWindow.classList.remove('minimized');
@@ -252,25 +252,19 @@ document.addEventListener('DOMContentLoaded', function() {
             isMinimized = true;
         }
     });
-          // Maximize - desktop works perfectly, mobile fixed
-    maxBtn.addEventListener('click', () => {
-        if (isEnlarged) {
-            // Restore
-            stickyWindow.style.width = originalStyles.width;
-            stickyWindow.style.height = originalStyles.height;
-            stickyWindow.style.transform = originalStyles.transform;
-            stickyWindow.style.left = '';
-            stickyWindow.style.top = '';
-            stickyWindow.style.marginTop = '';
-            stickyWindow.classList.remove('enlarged');
-            isEnlarged = false;
-        } else {
-            saveOriginalStyles();
-            stickyWindow.classList.add('enlarged');
-            isEnlarged = true;
-        }
-    });
-    });
+    // Maximize - enlarges + slight right shift
+    maxBtn.addEventListener('click', () => {
+        if (isEnlarged) {
+            stickyWindow.style.width = originalStyles.width;
+            stickyWindow.style.height = originalStyles.height;
+            stickyWindow.style.transform = originalStyles.transform;
+            stickyWindow.classList.remove('enlarged');
+            isEnlarged = false;
+        } else {
+            saveOriginalStyles();
+            stickyWindow.classList.add('enlarged');
+            isEnlarged = true;
+        }
     });
     // Close
     closeBtn.addEventListener('click', () => {
@@ -278,5 +272,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     saveOriginalStyles();
 });
+ 
 
 </script>
