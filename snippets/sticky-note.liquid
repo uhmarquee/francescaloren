@@ -169,6 +169,14 @@
         height: 280px;
     }
 }
+/* ENLARGED MOBILE - Same logic as desktop (enlarges to the right, no left cutoff) */
+    .sticky-note.enlarged {
+        width: 85vw !important;
+        height: 420px !important;
+        transform: translateX(-50%) !important;   /* Changed from -580% */
+        left: 50% !important;
+    }
+}
 
 @media screen and (max-width: 480px) {
     /* VERY SMALL PHONES (iPhone SE, older Androids, etc.) */
