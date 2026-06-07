@@ -171,15 +171,14 @@
 
     /* ENLARGED on mobile */
     .sticky-note.enlarged {
-        width: 72vw !important;
-        height: 340px !important;
-        transform: translateX(-62%) !important;
+        width: 78vw !important;
+        height: 360px !important;
+        transform: translateX(-58%) !important;
         top: 900px !important;
         margin-top: 650px !important;
         left: 50% !important;
     }
 }
-
 @media screen and (max-width: 480px) {
     /* VERY SMALL PHONES (iPhone SE, older Androids, etc.) */
     .sticky-note {
@@ -253,14 +252,16 @@ document.addEventListener('DOMContentLoaded', function() {
             isMinimized = true;
         }
     });
-        // Maximize - works perfectly on desktop, improved for mobile
+          // Maximize - desktop works perfectly, mobile fixed
     maxBtn.addEventListener('click', () => {
         if (isEnlarged) {
-            // Restore exactly like before
+            // Restore
             stickyWindow.style.width = originalStyles.width;
             stickyWindow.style.height = originalStyles.height;
             stickyWindow.style.transform = originalStyles.transform;
             stickyWindow.style.left = '';
+            stickyWindow.style.top = '';
+            stickyWindow.style.marginTop = '';
             stickyWindow.classList.remove('enlarged');
             isEnlarged = false;
         } else {
@@ -268,6 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
             stickyWindow.classList.add('enlarged');
             isEnlarged = true;
         }
+    });
     });
     });
     // Close
