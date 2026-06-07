@@ -254,13 +254,14 @@ document.addEventListener('DOMContentLoaded', function() {
             isMinimized = true;
         }
     });
-
     // Maximize - enlarges + slight right shift
     maxBtn.addEventListener('click', () => {
         if (isEnlarged) {
+            // Restore
             stickyWindow.style.width = originalStyles.width;
             stickyWindow.style.height = originalStyles.height;
             stickyWindow.style.transform = originalStyles.transform;
+            stickyWindow.style.left = '';           // clear any inline left
             stickyWindow.classList.remove('enlarged');
             isEnlarged = false;
         } else {
@@ -269,12 +270,5 @@ document.addEventListener('DOMContentLoaded', function() {
             isEnlarged = true;
         }
     });
-
-    // Close
-    closeBtn.addEventListener('click', () => {
-        stickyWindow.style.display = 'none';
-    });
-
-    saveOriginalStyles();
-});
+   
 </script>
