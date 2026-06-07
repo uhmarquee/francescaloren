@@ -160,7 +160,6 @@
 
 @media screen and (max-width: 1500px) {
     /* MOBILE PHONES + Smaller Desktops */
-    /* This is the main mobile rule - applies to most phones */
     .sticky-note {
         top: 900px !important;
         margin-top: 650px !important;
@@ -170,7 +169,7 @@
         height: 280px;
     }
 
-    /* ENLARGED on mobile - stays in same vertical spot, enlarges a little to the right */
+    /* ENLARGED on mobile */
     .sticky-note.enlarged {
         width: 72vw !important;
         height: 340px !important;
@@ -254,19 +253,22 @@ document.addEventListener('DOMContentLoaded', function() {
             isMinimized = true;
         }
     });
-    // Maximize - enlarges + slight right shift
-    maxBtn.addEventListener('click', () => {
-        if (isEnlarged) {
-            stickyWindow.style.width = originalStyles.width;
-            stickyWindow.style.height = originalStyles.height;
-            stickyWindow.style.transform = originalStyles.transform;
-            stickyWindow.classList.remove('enlarged');
-            isEnlarged = false;
-        } else {
-            saveOriginalStyles();
-            stickyWindow.classList.add('enlarged');
-            isEnlarged = true;
-        }
+        // Maximize - works perfectly on desktop, improved for mobile
+    maxBtn.addEventListener('click', () => {
+        if (isEnlarged) {
+            // Restore exactly like before
+            stickyWindow.style.width = originalStyles.width;
+            stickyWindow.style.height = originalStyles.height;
+            stickyWindow.style.transform = originalStyles.transform;
+            stickyWindow.style.left = '';
+            stickyWindow.classList.remove('enlarged');
+            isEnlarged = false;
+        } else {
+            saveOriginalStyles();
+            stickyWindow.classList.add('enlarged');
+            isEnlarged = true;
+        }
+    });
     });
     // Close
     closeBtn.addEventListener('click', () => {
