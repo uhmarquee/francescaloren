@@ -1,0 +1,39 @@
+<!-- sections/video-hero.liquid -->
+
+<div class="video-container-1">
+  <video class="video-1" 
+         autoplay 
+         muted 
+         loop 
+         playsinline 
+         poster="{{ 'video1-poster.jpg' | asset_url }}">
+    <source src="{{ 'video1.mp4' | asset_url }}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<style>
+  .video-container-1 {
+    margin: 10px 0 100px 0;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .video-1 {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border: 2px solid #000;
+  }
+
+  @media (max-width: 768px) {
+    .video-container-1 {
+      margin-bottom: 60px;
+    }
+  }
+</style>
