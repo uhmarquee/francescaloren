@@ -1,8 +1,13 @@
 <!-- Main Homepage Content -->
+
+<!-- 1. Image Container -->
 <div class="image-container-1">
   <img class="image-1" src="{{ 'image-1.jpg' | asset_url }}" alt="Francesca Loren">
 </div>
 
+
+
+<!-- 2. YouTube Video Container -->
 <!-- Main Homepage Content - YouTube Video -->
 <div class="video-container-1">
   <iframe 
@@ -15,6 +20,12 @@
   </iframe>
 </div>
 
+
+<!-- 3. Sticky Note -->
+{% render 'sticky-note' %}
+
+
+/*video container*/
 <style>
   .video-container-1 {
     margin: 10px 0 100px 0;
