@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title | default: 'Francesca Loren' }}</title>
-  {{ content_for_header }}
+  <title> HARLE </title>
+
+
+
+
+
+  
 
   <style>
     * {box-sizing: border-box;}
@@ -336,12 +341,12 @@
 
   <!-- 1. Image Container -->
 <div class="image-container-1">
-  <img class="image-1" src="{{ 'image-1.jpg' | asset_url }}" alt="Francesca Loren">
+  <img class="image-1" src="assets/image-1.jpg" alt="HARLE">
 </div>
 
 
   <main>
-    {{ content_for_layout }}
+
   </main>
 
 
@@ -362,12 +367,11 @@
 </div>
 
 <style>
-{% include 'sticky-note' %}
+
 <footer>
   <div class="copyright_text">2026 FRANCESCA LOREN</div>
 </footer>
-  {% section 'footer' %}
-  {{ content_for_footer }}
+
 
 </body>
 </html>
