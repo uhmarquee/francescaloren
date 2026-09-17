@@ -1,1 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title | default: 'Francesca Loren' }}</title>
+  {{ content_for_header }}
 
+  <style>
+    * {box-sizing: border-box;}
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* ==================== NAVBAR ==================== */
+    .navbar {
+      background-color: #fff;
+      border: 2px solid #000;
+      margin-top: 10px;                    /* Top whitespace */
+      margin-left: 11px;                   /* Left whitespace */
+      margin-right: 5px;                  /* Right whitespace */
+
+      background-color: #fff;
+      padding: 16px 20px; /* padding: 25px 30px;*/
+      position: relative;
+      z-index: 1001;
+      font-family: Arial, sans-serif;
+     width: calc(100% - 23px);
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .logo-link {
+      color: #000;
+      font-size: 36px;
+      font-weight: bold;
+      text-decoration: none;
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    /* ==================== IMAGES ==================== */
+    .image-container-1 {
+      width: 100%;
+      position: relative;
+      padding: 0 15px;              /* Same side padding as navbar for perfect alignment */
+      margin-top: 10px;
+    }
+
+    .image-1 {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      border: 2px solid #000;
+    }
+
+/* ==================== DESKTOP ONLY - First Main Image ==================== */
+@media screen and (min-width: 769px) {
+  .image-container-1 {
+    margin-top: 10px;
+    margin-left: 0;
+    margin-right: 0;
+ 
+    width: 100%;
+    height: 4400px;           /* ← Main height you should start with */
+    box-sizing: border-box;
+    display: grid;
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+    
+    /* Optional improvements for desktop */
+    /* max-width: 1400px; */   /* uncomment + add margin: 0 auto; if you want it centered/not full bleed */
+    /* margin: 10px auto 0; */
+  }
+
+  .image-1 {
+    width: 100%;
+    height: 36.7%;           /* Changed from 36.7% → 100% so it fills the container properly */
+    object-fit: cover;
+    display: block;
+    z-index: 2;
+    border: 2px solid black;
+  }
+}
+
+
+/*new for added space and length for scrolling*/
+/* Add this at the bottom of your <style> section */
+.content-section {
+  margin: 20px 15px;
+  padding: 60px 40px;
+  border: 2px solid #000;
+  background-color: #fff;
+  min-height: 800px;   /* adjust as needed */
+}
+
+
+
+/* ==================== STICKY NOTE STYLES ==================== */
+.sticky-note {
+    position: relative;
+    
+    top: auto;
+    margin-top: 0px;
+    margin-bottom: 100px;
+    left: 50%;
+    transform: translateX(-211%);
+    width: 700px;
+    max-width: 92vw;
+    height: 600px;
+    background: #fff59d;
+    border: 2px solid white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    transition: width 0.25s ease, height 0.25s ease, transform 0.25s ease;
+}
+
+.title-bar {
+    background: linear-gradient(to right, #000080, #1084d0);
+    color: white;
+    padding: 2px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    user-select: none;
+    height: 25px;
+}
+
+.title { font-weight: bold; font-size: 12px; }
+
+.buttons { display: flex; gap: 2px; }
+
+.btn {
+    width: 16px;
+    height: 14px;
+    background-color: #c0c0c0;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    border-bottom: 1px solid #808080;
+    border-right: 1px solid #808080;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    font-size: 0;
+}
+
+.btn:active {
+    border-top: 1px solid #808080;
+    border-left: 1px solid #808080;
+    border-bottom: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+    background-color: #c0c0c0;
+}
+
+/* Windows 95 icons */
+.minimize-btn::before {
+    content: '';
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 2px;
+    background-color: #000;
+}
+
+.maximize-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border: 1px solid #000;
+    border-top: 2px solid #000;
+}
+
+.close-btn::before,
+.close-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 2px;
+    background-color: #000;
+}
+.close-btn::before { transform: translate(-50%, -50%) rotate(45deg); }
+.close-btn::after { transform: translate(-50%, -50%) rotate(-45deg); }
+
+.stickynote-content {
+    padding: 10px;
+    height: calc(100% - 25px);
+    background: #fff59d;
+    display: flex;
+    flex-direction: column;
+}
+
+.stickynote-content textarea {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 15.5px;
+    line-height: 1.5;
+    resize: none;
+    font-family: Arial, sans-serif;
+    color: black;
+}
+
+/* States */
+.minimized .stickynote-content { display: none; }
+.minimized { height: 25px !important; overflow: hidden; }
+
+.enlarged {
+    width: 820px !important;
+    height: 720px !important;
+    z-index: 10000;
+    /* Moves it a bit to the right while keeping left side aligned */
+    transform: translateX(-165%) !important;
+}
+
+/* ==================== RESPONSIVE RULES ==================== */
+/* ==================== RESPONSIVE RULES ==================== */
+/* These rules automatically adjust the sticky note based on screen size */
+
+@media screen and (max-width: 1024px) {
+    /* TABLETS & Small Laptops */
+    .sticky-note {
+        width: 460px;
+        height: 380px;
+    }
+}
+@media screen and (max-width: 1500px) {
+    /* MOBILE PHONES + Smaller Desktops */
+    .sticky-note {
+        top: 300px !important;
+        margin-top: 200px !important;
+        margin-bottom:500px;
+        left: 50% !important;
+        transform: translateX(-80%) !important;
+        width: 60vw;
+        height: 280px;
+    }
+
+    /* ENLARGED on mobile - minimal change */
+    .sticky-note.enlarged {
+        width: 75vw !important;
+        height: 350px !important;
+        transform: translateX(-55%) !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* VERY SMALL PHONES (iPhone SE, older Androids, etc.) */
+    .sticky-note {
+        top: 70px !important;
+        height: 280px;
+    }
+    .stickynote-content textarea {
+        font-size: 14.5px;
+    }
+}
+
+
+
+   
+/* ==================== FOOTER / COPYRIGHT ==================== */
+     /* Footer */
+    footer {
+      width: 100%;
+      position: static;
+    }
+
+  .copyright_text {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 25px 0;
+      font-size: 20px;           /* Desktop font size */
+    }
+
+
+/* ==================== RESPONSIVE ==================== */
+@media screen and (max-width:768px) {
+  .navbar {
+    margin: 12px 11px 0px 11px;
+    padding: 8px 15px;        /* Reduced vertical padding → makes navbar shorter */
+    width: calc(100% - 22px);
+  }
+  
+  .logo-link {
+    font-size: 18px;           /* Slightly smaller text to help with height */
+  }
+  
+  .image-container-1 {
+    padding: 0 11px;
+    margin-top: 5px;
+    margin-bottom: 0px;}
+
+
+.copyright_text { 
+      
+        font-size: 16px;         /* Smaller font size on mobile */
+      }
+
+
+
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="/" class="logo-link">HARLE</a>
+    </div>
+  </nav>
+
+  <!-- 1. Image Container -->
+<div class="image-container-1">
+  <img class="image-1" src="{{ 'image-1.jpg' | asset_url }}" alt="Francesca Loren">
+</div>
+
+
+  <main>
+    {{ content_for_layout }}
+  </main>
+
+
+<!-- =============== STICKY NOTE =============== -->
+<div class="sticky-note windows-image-container" id="stickyWindow">
+    <div class="title-bar" id="titleBar">
+        <span class="title">Sticky Note</span>
+        <div class="buttons">
+            <button class="btn minimize-btn" id="minBtn"></button>
+            <button class="btn maximize-btn" id="maxBtn"></button>
+            <button class="btn close-btn" id="closeBtn"></button>
+        </div>
+    </div>
+    <div class="stickynote-content windows-image-content" id="contentArea">
+        <textarea id="noteText"> Sorry, I'm busy right now, but I'll see ya soon!
+-HQ</textarea>
+    </div>
+</div>
+
+<style>
+{% include 'sticky-note' %}
+<footer>
+  <div class="copyright_text">2026 FRANCESCA LOREN</div>
+</footer>
+  {% section 'footer' %}
+  {{ content_for_footer }}
+
+</body>
+</html>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const stickyWindow = document.getElementById('stickyWindow');
+    const titleBar = document.getElementById('titleBar');
+    const minBtn = document.getElementById('minBtn');
+    const maxBtn = document.getElementById('maxBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    let isMinimized = false;
+    let isEnlarged = false;
+    let originalStyles = {};
+
+    function saveOriginalStyles() {
+        originalStyles = {
+            width: stickyWindow.style.width || getComputedStyle(stickyWindow).width,
+            height: stickyWindow.style.height || getComputedStyle(stickyWindow).height,
+            transform: stickyWindow.style.transform
+        };
+    }
+
+    // Dragging
+    let isDragging = false;
+    let offsetX, offsetY;
+
+    function startDrag(e) {
+        if (e.target.tagName === 'BUTTON') return;
+        isDragging = true;
+        const rect = stickyWindow.getBoundingClientRect();
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        offsetX = clientX - rect.left;
+        offsetY = clientY - rect.top;
+        stickyWindow.style.transform = 'none';
+    }
+
+    function drag(e) {
+        if (!isDragging) return;
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        stickyWindow.style.left = (clientX - offsetX) + 'px';
+        stickyWindow.style.top = (clientY - offsetY) + 'px';
+    }
+
+    titleBar.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', () => isDragging = false);
+
+    titleBar.addEventListener('touchstart', startDrag, { passive: true });
+    document.addEventListener('touchmove', drag, { passive: true });
+    document.addEventListener('touchend', () => isDragging = false);
+
+  // Minimize
+    minBtn.addEventListener('click', () => {
+        if (isMinimized) {
+            stickyWindow.classList.remove('minimized');
+            isMinimized = false;
+        } else {
+            stickyWindow.classList.add('minimized');
+            isMinimized = true;
+        }
+    });
+    // Maximize - enlarges + slight right shift
+    maxBtn.addEventListener('click', () => {
+        if (isEnlarged) {
+            stickyWindow.style.width = originalStyles.width;
+            stickyWindow.style.height = originalStyles.height;
+            stickyWindow.style.transform = originalStyles.transform;
+            stickyWindow.classList.remove('enlarged');
+            isEnlarged = false;
+        } else {
+            saveOriginalStyles();
+            stickyWindow.classList.add('enlarged');
+            isEnlarged = true;
+        }
+    });
+    // Close
+    closeBtn.addEventListener('click', () => {
+        stickyWindow.style.display = 'none';
+    });
+    saveOriginalStyles();
+});
+ 
+
+</script>
